@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+
+  <title>Quprint</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+  <script src="https://www.paypal.com/sdk/js?client-id=AQ_TnhAT8I5QETWbvPONL4jBSrr_bzUv5kcF9MGpVa8195TPdytmi6cpnUY35eUuDZQrLDgfnDSPr2SE&currency=SEK"></script>
+
+  <style>
+    .cart-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .cart-items-wrapper {
+      text-align: center;
+      padding: 20px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .delete-button {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      cursor: pointer;
+    }
+
+    #order-button {
+      margin-top: 20px;
+      background-color: #00000000;
+      color: white;
+      border: 2px solid white;
+      padding: 15px 30px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .CountryAd {
+      text-align: center;
+      margin-top: 20px;
+      border: 2px solid rgba(255, 255, 255, 0);
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .CountryAd .Dropdown {
+  margin-top: 1px;
+  border: 2px solid white;
+  background-color: rgba(34, 49, 35, 0);
+  color: white; /* Set default text color to white */
+  font-weight: bold; /* Make text thicker */
+  border-radius: 5px; /* Set border-radius to make corners smooth */
+  overflow: hidden; /* Hide overflow to ensure smooth corners */
+  
+}
+
+/* Set the color of the options to black */
+.CountryAd .Dropdown option {
+  color: black;
+}
+
+/* Add a hover effect for better visibility on the dropdown */
+.CountryAd .Dropdown:hover {
+  background-color: rgb(255, 255, 255); /* Set the background color to its default value on hover */
+  color: rgb(0, 0, 0); /* Change text color on hover */
+  border-radius: 5px; /* Add border-radius for smooth corners on hover */
+}
+
+/* Change text color to white on hover for the options */
+.CountryAd .Dropdown:hover option {
+  color: black; /* Set the text color to its default value on hover */
+}
+
+    
+    .coupon-form {
+      text-align: center;
+      margin-top: 20px;
+      border: 2px solid white;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .coupon-form label {
+      margin-right: 10px;
+      font-weight: bold;
+      display: block;
+    }
+
+    .coupon-form input {
+      color: white;
+      padding: 8px;
+      border: 1px solid white;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      width: 200px;
+      background-color: rgba(255, 255, 255, 0);
+    }
+
+    .coupon-form .form-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .coupon-form button {
+      padding: 8px 15px;
+      cursor: pointer;
+      border: 2px solid white;
+      background-color: transparent;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .coupon-form button:hover {
+      background-color: white;
+      color: black;
+    }
+     .delivery-text {
+  font-size: medium; /* Adjust font size as needed */
+  display: block;
+  margin-top: 5px; /* Adjust margin-top as needed */
+}
+  </style>
+</head>
+
+
+<body class="sub_page">
+  <div class="hero_area">
+    <div class="hero_bg_box">
+      <div class="img-box">
+        <img src="images/hero-bg.jpg" alt="">
+      </div>
+    </div>
+
+    <header class="header_section">
+      <div class="header_top">
+        <div class="container-fluid">
+          <div class="contact_link-container">
+            <a href="" class="contact_link1">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span>
+                Malmö
+              </span>
+            </a>
+            <a href="" class="contact_link3">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>
+                Quantumsprints@gmail.com
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+ 
+  <section class="contact_section layout_padding">
+    <div class="contact_bg_box">
+      <div class="img-box">
+        <img src="images/contact-bg.jpg" alt="">
+      </div>
+    </div>
+    <div class="container">
+    </div>
+    <div class="heading_container heading_center">
+      <h2>
+        Cart
+      </h2>
+    </div>
+
+    <div class="cart-content" id="cart-content">
+      <div class="cart-items-wrapper">
+        <div id="cart-items"></div>
+        <h3>
+          <span class="delivery-text">Delivery: 0.00kr</span>
+          Total: <span id="cart-total">0.00</span>
+        </h3>   
+        <button id="order-button" style="display: none;" onclick="placeOrder()">Order Now</button>
+      </div>
+    <div class="coupon-form">
+  <label for="coupon-code">Coupon Code:</label>
+  <input type="text" id="coupon-code" name="coupon-code" placeholder="">
+  <button type="button" onclick="applyCoupon()">Apply Coupon</button>
+</div>
+<div class="CountryAd">
+  <label for="country-dropdown"></label>
+  <select class="CountryAd Dropdown" id="country-dropdown">
+    <option value="Sweden" class="selected-option">Sweden</option>
+    <option value="Denmark">Denmark</option>
+    <option value="Norway">Norway</option>
+    <option value="Finland">Finland</option>
+  </select>
+  
+      </div>
+
+    </div>
+  </section>
+
+<script>
+  // Function to calculate delivery cost based on selected country and number of items
+function calculateDeliveryCost(selectedCountry, itemCount) {
+  if (selectedCountry === 'Sweden') {
+    return 0; // Free delivery for Sweden
+  } else {
+    // Calculate delivery cost based on the number of items
+    if (itemCount <= 5) {
+      return 10 * itemCount; // 10kr per item for other countries (up to 5 items)
+    } else {
+      return 10 * 5 + 20 * (itemCount - 5); // 10kr per item for the first 5 items, then 20kr per item for the rest
+    }
+  }
+}
+// Clear coupon code on page load/refresh
+localStorage.removeItem('ewebCouponApplied');
+
+// Load cart items from localStorage
+const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+// Initialize total variable
+let total = 0;
+
+// Load selected country from localStorage
+const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
+const countryDropdown = document.getElementById('country-dropdown');
+countryDropdown.value = selectedCountry;
+
+// Event listener for country dropdown change
+countryDropdown.addEventListener('change', function () {
+  const selectedCountry = countryDropdown.value;
+  localStorage.setItem('selectedCountry', selectedCountry);
+});
+
+function applyCoupon() {
+  const couponCodeInput = document.getElementById('coupon-code');
+  const couponCode = couponCodeInput.value.trim();
+
+  if (couponCode === 'eweb') {
+    couponPercentage = 25;
+    localStorage.setItem('ewebCouponApplied', '25%, eweb');
+    alert('Coupon applied successfully!');
+  } else {
+    couponPercentage = 0;
+    localStorage.removeItem('ewebCouponApplied');
+    alert('Invalid coupon code.');
+  }
+
+  updateCart();
+}
+function updateCart() {
+  const cartItemsDiv = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  const deliveryText = document.querySelector('.delivery-text');
+
+  // Clear existing cart items before updating
+  cartItemsDiv.innerHTML = '';
+
+  let total = 0;
+
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  const itemCount = cartItems.length;
+
+  cartItems.forEach((item, index) => {
+    const cartItemDiv = document.createElement('div');
+    cartItemDiv.className = 'cart-item';
+    cartItemDiv.innerHTML = `
+        <span>${item.name} - ${item.price.toFixed(2)} Kr</span>
+        <button class="delete-button" onclick="deleteItem(${index})">Delete</button>
+    `;
+    cartItemsDiv.appendChild(cartItemDiv);
+    total += item.price;
+  });
+
+  // Calculate delivery cost
+  const selectedCountry = document.getElementById('country-dropdown').value;
+  const deliveryCost = calculateDeliveryCost(selectedCountry, itemCount);
+
+  // Apply coupon discount
+  const couponPercentage = localStorage.getItem('ewebCouponApplied') ? 25 : 0;
+  const discount = (total * couponPercentage) / 100;
+  const discountedTotal = total - discount + deliveryCost;
+
+  cartTotal.textContent = ` ${discountedTotal.toFixed(2)} Kr`;
+  deliveryText.textContent = `Delivery: ${deliveryCost.toFixed(2)}kr`;
+
+  const orderButton = document.getElementById('order-button');
+  orderButton.style.display = itemCount > 0 ? 'block' : 'none';
+}
+
+// Event listener for country dropdown change
+countryDropdown.addEventListener('change', function () {
+  // Clear the existing cart items before changing the country
+  const cartItemsDiv = document.getElementById('cart-items');
+  cartItemsDiv.innerHTML = '';
+
+  // Update the country and cart based on the selected country
+  const selectedCountry = document.getElementById('country-dropdown').value;
+  localStorage.setItem('selectedCountry', selectedCountry);
+
+  // Refresh the cart based on the updated country
+  updateCart();
+});
+
+// Event listener for country dropdown change
+countryDropdown.addEventListener('change', function () {
+  updateCart(); // Update the cart when the country is changed
+});
+function deleteItem(index) {
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+  if (index >= 0 && index < cartItems.length) {
+    cartItems.splice(index, 1);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    updateCart();
+  } else {
+    alert('Invalid item index.');
+  }
+
+  localStorage.removeItem('ewebCouponApplied');
+}
+
+function placeOrder() {
+  location.href = 'Info.html';
+}
+
+window.onload = updateCart;
+
+paypal.Buttons({
+  createOrder: function (data, actions) {
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: total.toFixed(2),
+          currency_code: 'SEK',
+        },
+      }],
+    });
+  },
+  onApprove: function (data, actions) {
+    return actions.order.capture().then(function (details) {
+      alert('Transaction completed by ' + details.payer.name.given_name);
+      cartItems.length = 0;
+      updateCart();
+    });
+  }
+}).render('#paypal-button-container');
+
+
+
+
+
+  
+ function updateDeliveryAndTotalInLocalStorage() {
+    const deliveryCost = document.querySelector('.delivery-text').textContent;
+    const cartTotal = document.getElementById('cart-total').textContent;
+    localStorage.setItem('deliveryCost', deliveryCost);
+    localStorage.setItem('cartTotal', cartTotal);
+}
+
+// Update delivery cost and cart total in local storage when cart is updated
+updateCart();
+
+// Call function to update both delivery cost and cart total in local storage whenever the cart is updated
+window.addEventListener('DOMContentLoaded', updateDeliveryAndTotalInLocalStorage);
+
+</script>
+
+
+
+
+  <footer class="container-fluid footer_section">
+    <p>
+      &copy; <span id="currentYear"></span> All Rights Reserved. Design by Ali</a>
+    </p>
+  </footer>
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/custom.js"></script>
+</body>
+
+</html>

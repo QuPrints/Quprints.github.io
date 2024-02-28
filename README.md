@@ -1,1 +1,1 @@
-# Quprints.github.io
+# Quprint.github.io

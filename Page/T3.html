@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+  .CartTop {
+    position: absolute;
+    top: 100%;
+    right: 0px;
+    z-index: 1000;
+  }
+  .cart-item-count {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 0, 0, 0);
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 50%;
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+  }
+  .NOTE {
+    color: red;
+  }
+  .arrow-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #000;
+  }
+
+  .arrow-buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .heart-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #000;
+    position: relative;
+  }
+
+  .heart-shape {
+    width: 1em;
+    height: 1em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(0.25em, 0);
+  }
+
+  .red-heart {
+    fill: red;
+    stroke: black;
+    stroke-width: 2;
+  }
+
+  .white-heart {
+    fill: white;
+    stroke: black;
+    stroke-width: 2;
+  }
+</style>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+
+  <title>Quprint</title>
+
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+  <link href="../css/style.css" rel="stylesheet" />
+  <link href="../css/responsive.css" rel="stylesheet" />
+</head>
+
+<body class="sub_page">
+  <div class="hero_area">
+    <div class="hero_bg_box">
+      <div class="img-box">
+        <img src="../images/hero-bg.jpg" alt="">
+      </div>
+    </div>
+
+    <header class="header_section">
+      <div class="header_top">
+        <div class="container-fluid">
+          <div class="contact_link-container">
+            <a href="" class="contact_link1">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span>
+                Malmö
+              </span>
+            </a>
+            <a href="" class="contact_link3">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>
+                Quantumsprints@gmail.com
+              </span>
+            </a>        
+
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <section class="about_section layout_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 px-0">
+          <div class="img_container">
+            <div class="img-box">
+              <img src="../images/T3_1.png" alt="" id="product-image"/>
+            </div>
+          </div>
+          <div class="arrow-buttons-container">
+            <button class="arrow-button" onclick="changeImage('prev')">←</button>
+            <button class="arrow-button" onclick="changeImage('next')">→</button>
+          </div>
+          <button class="heart-button" id="heart-button" onclick="toggleHeart()">
+            <svg class="heart-shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path class="red-heart" d="M12 21.35l-1.45-1.32C5.4 14.25 2 11.16 2 7.5 2 4.42 4.42 2 7.5 2 9.24 2 10.91 2.89 12 4.35 13.09 2.89 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.65-3.4 6.75-8.55 12.03L12 21.35z"/>
+              <path class="white-heart" d="M12 21.35l-1.45-1.32C5.4 14.25 2 11.16 2 7.5 2 4.42 4.42 2 7.5 2 9.24 2 10.91 2.89 12 4.35 13.09 2.89 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.65-3.4 6.75-8.55 12.03L12 21.35z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="col-md-6 px-0">
+          <div class="detail-box">
+            <div class="heading_container ">
+              <h2>
+                Tag<hr>30kr</h2>
+            </div>
+            <p>
+              Create your Contact Finder Tag with ease!
+              <br><br>
+              Introducing our Contact Information Tag precisely sized plastic piece, measuring 87.5mm x 19mm, exclusively designed for seamless integration with your belongings. This discreet tag serves a singular purpose: prominently display your contact number with the clear directive, "If found, contact [YourPhoneNumber]."<br><br>
+
+              This practical accessory ensures that your valuable items are equipped with a straightforward solution for retrieval. Its streamlined design strikes a balance between subtlety and effectiveness, making it a versatile addition to various possessions.<br><br>
+              
+              Safeguard your belongings with the Contact Information Tag. Order now for a straightforward and efficient way to ensure your lost items find their way back to you.<br><br>
+              Order today for an elevated stamping experience and leave your mark effortlessly!
+            </p>
+            <br>
+            <br>
+           <div class="checkbox-container">
+  <input type="radio" id="largeCheckbox" name="size" value="Large" onclick="setPriceAndQuantity(30, 1)">
+  <label for="largeCheckbox">1st 30kr</label><br>
+  <input type="radio" id="mediumCheckbox" name="size" value="Medium" onclick="setPriceAndQuantity(40, 2)">
+  <label for="mediumCheckbox">2st 40kr</label><br>
+  <input type="radio" id="smallCheckbox" name="size" value="Small" onclick="setPriceAndQuantity(50, 5)">
+  <label for="smallCheckbox">5st 50kr</label><br>
+</div>
+
+            <div class="file-upload">
+              <input type="text" id="Pn" name="Pn" value="" placeholder="PhoneNr" required><br>
+            </div>
+            <div class="NOTE">
+              <br>
+            </div>
+            <div class="btn-box">
+              <a href="javascript:void(0);" onclick="addToCart('Tag', 25)">
+                Add to basket
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+  let selectedQuantity = 0;
+  let selectedPrice = 0;
+
+  function setPriceAndQuantity(price, quantity) {
+    selectedPrice = price;
+    selectedQuantity = quantity;
+  }
+
+  function addToCart(itemName) {
+    const cartItemCount = document.getElementById('cart-item-count');
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const phoneNrInput = document.getElementById('Pn');
+
+    // Check if the phoneNrInput is empty
+    const phoneNr = phoneNrInput.value.trim();
+    if (phoneNr === '') {
+      alert('Please fill in the PhoneNr field');
+      return;
+    }
+
+    // Check if a valid quantity and price are selected
+    if (selectedQuantity === 0 || selectedPrice === 0) {
+      alert('Please select a quantity and price.');
+      return;
+    }
+
+    // Check if the item is already in the cart
+    const existingItemIndex = cartItems.findIndex(item => item.id === phoneNr && item.name === itemName);
+    if (existingItemIndex !== -1) {
+      cartItems[existingItemIndex].quantity += selectedQuantity;
+    } else {
+      cartItems.push({
+        id: phoneNr, // Use only the phone number as the ID
+        name: itemName,
+        price: selectedPrice,
+        quantity: selectedQuantity,
+      });
+    }
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    cartItemCount.textContent = cartItems.length;
+
+    alert('Product added to cart!');
+  }
+</script>
+
+
+  <footer class="container-fluid footer_section">
+    <p>
+      &copy; <span id="currentYear"></span> All Rights Reserved. Design by Ali</a>
+    </p>
+  </footer>
+
+  <script src="../js/jquery-3.4.1.min.js"></script>
+  <script src="../js/bootstrap.js"></script>
+  <script src="../js/custom.js"></script>
+</body>
+
+</html>
