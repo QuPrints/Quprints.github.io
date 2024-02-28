@@ -195,14 +195,17 @@
   }
 
   // Function to send email using EmailJS
-  function sendEmail(emailVariables) {
-    emailjs.send("service_vza1phw", "template_r04a2yz", emailVariables)
-      .then(function (response) {
-        console.log('Email sent successfully:', response);
-      }, function (error) {
-        console.error('Email sending failed:', error);
-      });
-  }
+function sendEmail(emailVariables) {
+  console.log('Sending email with variables:', emailVariables);
+  
+  emailjs.send("service_vza1phw", "template_r04a2yz", emailVariables)
+    .then(function (response) {
+      console.log('Email sent successfully:', response);
+    }, function (error) {
+      console.error('Email sending failed:', error);
+    });
+}
+
 
   // Call this function when the Infos.html page loads
   window.onload = displayItemDetails;
