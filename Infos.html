@@ -76,128 +76,127 @@
 <!-- Your existing HTML content -->
 
 <script>
-  emailjs.init("Kr1Jkm3Mtfa8tJk3T");
+emailjs.init("Kr1Jkm3Mtfa8tJk3T");
 
-  function displayItemDetails() {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const infosContainer = document.getElementById('infos-container');
-    infosContainer.innerHTML = ''; // Clear previous content
+function displayItemDetails() {
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  const infosContainer = document.getElementById('infos-container');
+  infosContainer.innerHTML = ''; // Clear previous content
 
-    // Counter for numbering itemDetails
-    let itemCounter = 1;
+  // Counter for numbering itemDetails
+  let itemCounter = 1;
 
-    cartItems.forEach((item, index) => {
-      const itemDetails = document.createElement('div');
-      itemDetails.innerHTML = `
-                <br>
-                <p>ID: ${item.id}</p>
-                <p>Item: ${item.name}</p>
-                <p>Quantity: ${item.quantity}</p>
-                <p>Price: ${item.price.toFixed(2)} Kr</p>
-                <hr>
-            `;
-      infosContainer.appendChild(itemDetails);
+  cartItems.forEach((item, index) => {
+    const itemDetails = document.createElement('div');
+    itemDetails.innerHTML = `
+            <br>
+            <p>ID: ${item.id}</p>
+            <p>Item: ${item.name}</p>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Price: ${item.price.toFixed(2)} Kr</p>
+            <hr>
+        `;
+    infosContainer.appendChild(itemDetails);
 
-      itemCounter++; // Increment the counter
-    });
+    itemCounter++; // Increment the counter
+  });
 
-    // Get and display form data
-    const formData = JSON.parse(localStorage.getItem('formData')) || {};
-    const formDetails = document.createElement('div');
-    formDetails.innerHTML = `
-              <p>FullName: ${formData.fullName}</p>
-              <p>Gmail: ${formData.gmail}</p>
-              <p>PhoneNumber: ${formData.phoneNumber}</p>
-              <p>Street Address: ${formData.streetAddress}</p>
-              <p>Postal Code: ${formData.postalCode}</p>
-              <p>City: ${formData.city}</p>
-          `;
-    infosContainer.appendChild(formDetails);
+  // Get and display form data
+  const formData = JSON.parse(localStorage.getItem('formData')) || {};
+  const formDetails = document.createElement('div');
+  formDetails.innerHTML = `
+          <p>FullName: ${formData.fullName}</p>
+          <p>Gmail: ${formData.gmail}</p>
+          <p>PhoneNumber: ${formData.phoneNumber}</p>
+          <p>Street Address: ${formData.streetAddress}</p>
+          <p>Postal Code: ${formData.postalCode}</p>
+          <p>City: ${formData.city}</p>
+      `;
+  infosContainer.appendChild(formDetails);
 
-    // Get and display selected country
-    const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
-    const countryDetails = document.createElement('p');
-    countryDetails.textContent = `Country: ${selectedCountry}`;
-    infosContainer.appendChild(countryDetails);
+  // Get and display selected country
+  const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
+  const countryDetails = document.createElement('p');
+  countryDetails.textContent = `Country: ${selectedCountry}`;
+  infosContainer.appendChild(countryDetails);
 
-    // Add horizontal rule between form data and delivery details
-    const hrElementForm = document.createElement('hr');
-    infosContainer.appendChild(hrElementForm);
+  // Add horizontal rule between form data and delivery details
+  const hrElementForm = document.createElement('hr');
+  infosContainer.appendChild(hrElementForm);
 
-    // Get and display delivery cost and total
-    const deliveryCost = localStorage.getItem('deliveryCost') || '0.00 kr';
-    const cartTotal = localStorage.getItem('cartTotal') || '0.00 kr';
+  // Get and display delivery cost and total
+  const deliveryCost = localStorage.getItem('deliveryCost') || '0.00 kr';
+  const cartTotal = localStorage.getItem('cartTotal') || '0.00 kr';
 
-    const deliveryDetails = document.createElement('p');
-    deliveryDetails.textContent = `Delivery Cost: ${deliveryCost}`;
-    infosContainer.appendChild(deliveryDetails);
+  const deliveryDetails = document.createElement('p');
+  deliveryDetails.textContent = `Delivery Cost: ${deliveryCost}`;
+  infosContainer.appendChild(deliveryDetails);
 
-    const totalDetails = document.createElement('p');
-    totalDetails.textContent = `Cart Total: ${cartTotal}`;
-    infosContainer.appendChild(totalDetails);
+  const totalDetails = document.createElement('p');
+  totalDetails.textContent = `Cart Total: ${cartTotal}`;
+  infosContainer.appendChild(totalDetails);
 
-    // Add larger horizontal rule above Order Number
-    const hrElementOrder = document.createElement('hr');
-    hrElementOrder.style.height = '4px';
-    infosContainer.appendChild(hrElementOrder);
+  // Add larger horizontal rule above Order Number
+  const hrElementOrder = document.createElement('hr');
+  hrElementOrder.style.height = '4px';
+  infosContainer.appendChild(hrElementOrder);
 
-    // Generate and display Order Number with adjusted font size
-    const orderNumberDetails = document.createElement('div');
-    orderNumberDetails.innerHTML = `<p style="font-size: 18px;">Order Number: ${generateOrderNumber()}</p>`;
-    infosContainer.appendChild(orderNumberDetails);
+  // Generate and display Order Number with adjusted font size
+  const orderNumber = generateOrderNumber(); // Generate the order number
+  const orderNumberDetails = document.createElement('div');
+  orderNumberDetails.innerHTML = `<p style="font-size: 18px;">Order Number: ${orderNumber}</p>`;
+  infosContainer.appendChild(orderNumberDetails);
 
-    // Prepare and send email using EmailJS
-    const emailVariables = {
-      ...getEmailVariables(),
-      ...getCartItemsVariables(cartItems),
-      OrderNumber: randomTenDigitNumber,  // Add OrderNumber to email variables
-      ordn: randomTenDigitNumber  // Submit OrderNumber to {{ordn}} in the template
-    };
-    sendEmail(emailVariables);
-  }
+  // Prepare and send email using EmailJS
+  const emailVariables = {
+    ...getEmailVariables(),
+    ...getCartItemsVariables(cartItems),
+    OrderNumber: orderNumber,  // Use the correct variable here
+    ordn: orderNumber  // Submit OrderNumber to {{ordn}} in the template
+  };
+  sendEmail(emailVariables);
+}
 
-  // Function to generate a random 10-digit order number
-  function generateOrderNumber() {
-    return Math.floor(Math.random() * 9000000000) + 1000000000;
-  }
+// Function to generate a random 10-digit order number
+function generateOrderNumber() {
+  return Math.floor(Math.random() * 9000000000) + 1000000000;
+}
 
-  // Function to get other data needed for EmailJS template
-  function getEmailVariables() {
-    const formData = JSON.parse(localStorage.getItem('formData')) || {};
-    const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
-    const deliveryCost = localStorage.getItem('deliveryCost') || '0.00 kr';
-    const cartTotal = localStorage.getItem('cartTotal') || '0.00 kr';
+// Function to get other data needed for EmailJS template
+function getEmailVariables() {
+  const formData = JSON.parse(localStorage.getItem('formData')) || {};
+  const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
+  const deliveryCost = localStorage.getItem('deliveryCost') || '0.00 kr';
+  const cartTotal = localStorage.getItem('cartTotal') || '0.00 kr';
 
-    return {
-      Name: formData.fullName,
-      Gmail: formData.gmail,
-      PhoneNr: formData.phoneNumber,
-      Adress: formData.streetAddress,
-      Postal: formData.postalCode,
-      City: formData.city,
-      Country: selectedCountry,
-      Delivery: deliveryCost,
-      Price: cartTotal
-    };
-  }
+  return {
+    Name: formData.fullName,
+    Gmail: formData.gmail,
+    PhoneNr: formData.phoneNumber,
+    Adress: formData.streetAddress,
+    Postal: formData.postalCode,
+    City: formData.city,
+    Country: selectedCountry,
+    Delivery: deliveryCost,
+    Price: cartTotal
+  };
+}
 
-  // Function to get variables for each cart item
-  function getCartItemsVariables(cartItems) {
-    const cartItemsVariables = {};
-    cartItems.forEach((item, index) => {
-      const itemCounter = index + 1;
-      cartItemsVariables[`Id${itemCounter}`] = item.id;
-      cartItemsVariables[`Item${itemCounter}`] = item.name;
-      cartItemsVariables[`Quantity${itemCounter}`] = item.quantity;
-      cartItemsVariables[`Price${itemCounter}`] = item.price.toFixed(2);
-    });
-    return cartItemsVariables;
-  }
+// Function to get variables for each cart item
+function getCartItemsVariables(cartItems) {
+  const cartItemsVariables = {};
+  cartItems.forEach((item, index) => {
+    const itemCounter = index + 1;
+    cartItemsVariables[`Id${itemCounter}`] = item.id;
+    cartItemsVariables[`Item${itemCounter}`] = item.name;
+    cartItemsVariables[`Quantity${itemCounter}`] = item.quantity;
+    cartItemsVariables[`Price${itemCounter}`] = item.price.toFixed(2);
+  });
+  return cartItemsVariables;
+}
 
-  // Function to send email using EmailJS
+// Function to send email using EmailJS
 function sendEmail(emailVariables) {
-  console.log('Sending email with variables:', emailVariables);
-  
   emailjs.send("service_vza1phw", "template_r04a2yz", emailVariables)
     .then(function (response) {
       console.log('Email sent successfully:', response);
@@ -206,8 +205,8 @@ function sendEmail(emailVariables) {
     });
 }
 
+// Call this function when the Infos.html page loads
+window.onload = displayItemDetails;
 
-  // Call this function when the Infos.html page loads
-  window.onload = displayItemDetails;
 </script>
 
