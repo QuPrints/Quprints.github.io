@@ -2,12 +2,29 @@
 <html lang="en">
 
 <style>
-    body {
-       background-image: url('images/Storage.jpg');
-       background-size: cover;
-       background-position: center;
-       background-repeat: no-repeat;
-    }
+   body {
+    position: relative; /* Make sure the body is a positioned element */
+    background-image: url('Images/Storage.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0; /* Remove default body margin */
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: inherit;
+    filter: blur(10px); /* Adjust the blur radius as needed */
+    z-index: -1; /* Place the blur behind the content */
+}
+
+/* Your existing styles go here */
+
     .CartTop {
         position: absolute;
         top: 60px;
