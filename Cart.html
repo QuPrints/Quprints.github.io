@@ -265,38 +265,17 @@ function applyCoupon() {
   const couponCode = couponCodeInput.value.trim();
 
   if (couponCode === 'eweb') {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    let total = 0;
-
-    // Calculate total before discount
-    cartItems.forEach((item) => {
-      total += item.price;
-    });
-
-    const itemCount = cartItems.length;
-    const selectedCountry = document.getElementById('country-dropdown').value;
-    const deliveryCost = calculateDeliveryCost(selectedCountry, itemCount);
-
-    // Apply coupon discount
-    const couponPercentage = 25;
-    const discount = (total * couponPercentage) / 100;
-    const discountedTotal = total - discount + deliveryCost;
-
-    // Store the discounted total in local storage
-    localStorage.setItem('cartTotal', discountedTotal.toFixed(2));
+    couponPercentage = 25;
     localStorage.setItem('ewebCouponApplied', '25%, eweb');
-
-    // Display an alert and update the cart
     alert('Coupon applied successfully!');
-    updateCart();
   } else {
-    // Clear coupon details and update the cart
+    couponPercentage = 0;
     localStorage.removeItem('ewebCouponApplied');
-    updateCart();
     alert('Invalid coupon code.');
   }
-}
 
+  updateCart();
+}
 function updateCart() {
   const cartItemsDiv = document.getElementById('cart-items');
   const cartTotal = document.getElementById('cart-total');
