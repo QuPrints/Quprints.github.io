@@ -227,7 +227,7 @@
   </section>
 
 <script>
-  // Function to calculate delivery cost based on selected country and number of items
+// Function to calculate delivery cost based on selected country and number of items
 function calculateDeliveryCost(selectedCountry, itemCount) {
   if (selectedCountry === 'Sweden') {
     return 0; // Free delivery for Sweden
@@ -240,6 +240,7 @@ function calculateDeliveryCost(selectedCountry, itemCount) {
     }
   }
 }
+
 // Clear coupon code on page load/refresh
 localStorage.removeItem('ewebCouponApplied');
 
@@ -275,6 +276,7 @@ function applyCoupon() {
 
   updateCart();
 }
+
 function updateCart() {
   const cartItemsDiv = document.getElementById('cart-items');
   const cartTotal = document.getElementById('cart-total');
@@ -313,6 +315,9 @@ function updateCart() {
 
   const orderButton = document.getElementById('order-button');
   orderButton.style.display = itemCount > 0 ? 'block' : 'none';
+
+  // Save discounted total to local storage
+  localStorage.setItem('discountedTotal', discountedTotal.toFixed(2));
 }
 
 // Event listener for country dropdown change
@@ -333,6 +338,7 @@ countryDropdown.addEventListener('change', function () {
 countryDropdown.addEventListener('change', function () {
   updateCart(); // Update the cart when the country is changed
 });
+
 function deleteItem(index) {
   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -371,14 +377,9 @@ paypal.Buttons({
       updateCart();
     });
   }
-}).render('#paypal-button-container');
+});
 
-
-
-
-
-  
- function updateDeliveryAndTotalInLocalStorage() {
+function updateDeliveryAndTotalInLocalStorage() {
     const deliveryCost = document.querySelector('.delivery-text').textContent;
     const cartTotal = document.getElementById('cart-total').textContent;
     localStorage.setItem('deliveryCost', deliveryCost);
@@ -390,7 +391,6 @@ updateCart();
 
 // Call function to update both delivery cost and cart total in local storage whenever the cart is updated
 window.addEventListener('DOMContentLoaded', updateDeliveryAndTotalInLocalStorage);
-
 </script>
 
 
