@@ -275,7 +275,6 @@ function applyCoupon() {
   }
 
   updateCart();
-  updateDeliveryAndTotalInLocalStorage();  // Add this line to update local storage
 }
 function updateCart() {
   const cartItemsDiv = document.getElementById('cart-items');
@@ -380,17 +379,11 @@ paypal.Buttons({
 
 
   
-function updateDeliveryAndTotalInLocalStorage() {
-  const deliveryCostText = document.querySelector('.delivery-text').textContent;
-  const cartTotalText = document.getElementById('cart-total').textContent;
-
-  // Extract numeric values from the text content
-  const deliveryCost = parseFloat(deliveryCostText.replace('Delivery: ', '').replace('kr', '').trim());
-  const cartTotal = parseFloat(cartTotalText.replace('Kr', '').trim());
-
-  // Update local storage
-  localStorage.setItem('deliveryCost', deliveryCost.toFixed(2));
-  localStorage.setItem('cartTotal', cartTotal.toFixed(2));
+ function updateDeliveryAndTotalInLocalStorage() {
+    const deliveryCost = document.querySelector('.delivery-text').textContent;
+    const cartTotal = document.getElementById('cart-total').textContent;
+    localStorage.setItem('deliveryCost', deliveryCost);
+    localStorage.setItem('cartTotal', cartTotal);
 }
 
 // Update delivery cost and cart total in local storage when cart is updated
