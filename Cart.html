@@ -275,6 +275,7 @@ function applyCoupon() {
   }
 
   updateCart();
+  updateDeliveryAndTotalInLocalStorage();  // Add this line to update local storage
 }
 function updateCart() {
   const cartItemsDiv = document.getElementById('cart-items');
