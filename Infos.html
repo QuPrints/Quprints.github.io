@@ -147,6 +147,16 @@ function displayItemDetails() {
   orderNumberDetails.innerHTML = `<p style="font-size: 18px;">Order Number: ${orderNumber}</p>`;
   infosContainer.appendChild(orderNumberDetails);
 
+
+  //New thing Weird i added Below
+  const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
+  if (ewebCouponApplied) {
+    const couponDetails = document.createElement('p');
+    couponDetails.textContent = `Coupon: ${ewebCouponApplied}`;
+    infosContainer.appendChild(couponDetails);
+  }
+
+  
   // Prepare and send email using EmailJS
   const emailVariables = {
     ...getEmailVariables(),
