@@ -126,14 +126,14 @@ function displayItemDetails() {
 
   // Get and display delivery cost and total
   const deliveryCost = localStorage.getItem('deliveryCost') || '0.00 kr';
-  const cartTotal = localStorage.getItem('cartTotal') || '0.00 kr';
+  const discountedTotal = localStorage.getItem('discountedTotal') || '0.00 kr';
 
   const deliveryDetails = document.createElement('p');
   deliveryDetails.textContent = `Delivery Cost: ${deliveryCost}`;
   infosContainer.appendChild(deliveryDetails);
 
   const totalDetails = document.createElement('p');
-  totalDetails.textContent = `Cart Total: ${cartTotal}`;
+  totalDetails.textContent = `Cart Total: ${discountedTotal}`;
   infosContainer.appendChild(totalDetails);
 
   // Add larger horizontal rule above Order Number
@@ -167,7 +167,7 @@ function getEmailVariables() {
   const formData = JSON.parse(localStorage.getItem('formData')) || {};
   const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
   const deliveryCost = localStorage.getItem('deliveryCost') || '0.00 kr';
-  const cartTotal = localStorage.getItem('cartTotal') || '0.00 kr';
+  const discountedTotal = localStorage.getItem('discountedTotal') || '0.00 kr';
 
   return {
     Name: formData.fullName,
@@ -178,7 +178,7 @@ function getEmailVariables() {
     City: formData.city,
     Country: selectedCountry,
     Delivery: deliveryCost,
-    Price: cartTotal
+    Price: discountedTotal
   };
 }
 
@@ -207,5 +207,4 @@ function sendEmail(emailVariables) {
 
 // Call this function when the Infos.html page loads
 window.onload = displayItemDetails;
-
 </script>
