@@ -327,7 +327,17 @@ function updateCart() {
 
   // Save discounted total to local storage
   localStorage.setItem('discountedTotal', discountedTotal.toFixed(2));
+
+  // Update delivery cost and cart total in local storage
+  updateDeliveryAndTotalInLocalStorage();
+
+  // Check if a coupon is applied
+  if (couponPercentage > 0) {
+    // If a coupon is applied, submit the discounted total to Infos.html
+    submitTotalToInfosPage(discountedTotal);
+  }
 }
+
 
 // Event listener for country dropdown change
 countryDropdown.addEventListener('change', function () {
