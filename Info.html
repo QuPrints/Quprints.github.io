@@ -137,6 +137,8 @@
         </div>
     </div>
 </section>
+<div id="paypal-button-container"></div>
+
  <!-- Your existing HTML content -->
 <div class="overlay" id="overlay">
   <div class="overlay-content">
@@ -369,7 +371,30 @@ window.onload = displayItemDetails;
 </footer>
 <footer class="container-fluid footer_section">
 </footer>
+
+<script src="https://www.paypal.com/sdk/js?client-id=AVzq-kHFWYoJnEp-Vbc4RC2NoszSwN6OPsujQloQJ8Ki1JbEgIhKjGFWN9tmbDkJkPv-oTnqJn9zIGMA&currency=SEK"></script>
 <script>
+ const discountedTotal = localStorage.getItem('discountedTotal') || '0.00';
+
+    // Render PayPal button
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: discountedTotal
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                // Show overlay upon successful payment
+                document.getElementById("overlay").style.display = "block";
+            });
+        }
+    }).render('#paypal-button-container');
+  
      function submitForm(event) {
       event.preventDefault();
 
