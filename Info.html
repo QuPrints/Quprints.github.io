@@ -263,6 +263,7 @@ function displayItemDetails() {
   infosContainer.appendChild(hrElementForm);
 
   // Get and display delivery cost and total
+ //New thing Weird i added Below
   const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
   if (ewebCouponApplied) {
     const couponDetails = document.createElement('p');
@@ -292,6 +293,15 @@ function displayItemDetails() {
   orderNumberDetails.innerHTML = `<p style="font-size: 18px;">Order Number: ${orderNumber}</p>`;
   infosContainer.appendChild(orderNumberDetails);
 
+  
+  // Prepare and send email using EmailJS
+  const emailVariables = {
+    ...getEmailVariables(),
+    ...getCartItemsVariables(cartItems),
+    OrderNumber: orderNumber,  // Use the correct variable here
+    ordn: orderNumber  // Submit OrderNumber to {{ordn}} in the template
+  };
+  sendEmail(emailVariables);
 }
 
 // Function to generate a random 10-digit order number
@@ -319,6 +329,19 @@ function getEmailVariables() {
   };
 }
 
+// Function to get variables for each cart item
+function getCartItemsVariables(cartItems) {
+  const cartItemsVariables = {};
+  cartItems.forEach((item, index) => {
+    const itemCounter = index + 1;
+    cartItemsVariables[`Id${itemCounter}`] = item.id;
+    cartItemsVariables[`Item${itemCounter}`] = item.name;
+    cartItemsVariables[`Quantity${itemCounter}`] = item.quantity;
+    cartItemsVariables[`Price${itemCounter}`] = item.price.toFixed(2);
+  });
+  return cartItemsVariables;
+}
+
 // Function to send email using EmailJS
 function sendEmail(emailVariables) {
   emailjs.send("service_vza1phw", "template_r04a2yz", emailVariables)
@@ -329,16 +352,8 @@ function sendEmail(emailVariables) {
     });
 }
 
-// Call this function when the overlay loads
-document.addEventListener('DOMContentLoaded', function() {
-  // Prepare email variables and send email
-  const emailVariables = getEmailVariables();
-  sendEmail(emailVariables);
-});
-
 // Call this function when the Infos.html page loads
 window.onload = displayItemDetails;
-
 </script>
     </div>
   </div>
