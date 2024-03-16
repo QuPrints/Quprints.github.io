@@ -382,7 +382,7 @@
   <!-- Include the PayPal JavaScript SDK -->
   <script src="https://www.paypal.com/sdk/js?client-id=AVzq-kHFWYoJnEp-Vbc4RC2NoszSwN6OPsujQloQJ8Ki1JbEgIhKjGFWN9tmbDkJkPv-oTnqJn9zIGMA&currency=USD"></script>
   <!-- Your script to handle PayPal payment here -->
-  <script>
+ <script>
     // Render the PayPal button into #paypal-button-container
     paypal.Buttons({
         style: {
@@ -416,8 +416,6 @@
                 document.getElementById('overlay').style.display = 'block';
                 // Update overlay content
                 displayItemDetails();
-                // Optionally, you can redirect the user to a success page
-                window.location.href = "success.html";
             });
         },
 
@@ -426,6 +424,7 @@
         }
     }).render('#paypal-button-container');
 </script>
+
 
 
   <script>
