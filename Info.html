@@ -385,41 +385,48 @@
   <script>
     // Render the PayPal button into #paypal-button-container
     paypal.Buttons({
-      style: {
-        shape: 'rect',
-        color: 'gold',
-        layout: 'vertical',
-        label: 'paypal',
-      },
+        style: {
+            shape: 'rect',
+            color: 'gold',
+            layout: 'vertical',
+            label: 'paypal',
+        },
 
-      // Set up the transaction
-      createOrder: function(data, actions) {
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: '10.00' // This value should be dynamically set based on the total
-            }
-          }]
-        });
-      },
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            // Retrieve discountedTotal from local storage
+            const discountedTotal = localStorage.getItem('discountedTotal') || '0.00 kr';
+            // Extract the numeric value
+            const totalValue = parseFloat(discountedTotal.replace(' kr', ''));
 
-      // Finalize the transaction
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          // Show the overlay once payment is successful
-          document.getElementById('overlay').style.display = 'block';
-          // Update overlay content
-          displayItemDetails();
-          // Optionally, you can redirect the user to a success page
-          window.location.href = "success.html";
-        });
-      },
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: totalValue.toFixed(2), // Set the total value
+                        currency_code: 'SEK' // Set the currency to SEK (Swedish Krona)
+                    }
+                }]
+            });
+        },
 
-      onError: function(err) {
-        console.error(err);
-      }
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                // Show the overlay once payment is successful
+                document.getElementById('overlay').style.display = 'block';
+                // Update overlay content
+                displayItemDetails();
+                // Optionally, you can redirect the user to a success page
+                window.location.href = "success.html";
+            });
+        },
+
+        onError: function(err) {
+            console.error(err);
+        }
     }).render('#paypal-button-container');
-  </script>
+</script>
+
 
   <script>
     function submitForm(event) {
