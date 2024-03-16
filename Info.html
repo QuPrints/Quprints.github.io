@@ -385,12 +385,20 @@ window.onload = displayItemDetails;
       return actions.order.capture().then(function(details) {
         // Show overlay upon successful payment
         document.getElementById("overlay").style.display = "block";
-        // Send email using EmailJS
-        sendEmail(getEmailVariables());
+
+        // Prepare and send email using EmailJS
+        const emailVariables = {
+          ...getEmailVariables(),
+          ...getCartItemsVariables(cartItems),
+          OrderNumber: orderNumber,
+          ordn: orderNumber
+        };
+        sendEmail(emailVariables);
       });
     }
   }).render('#paypal-button-container');
 
+  // Function to submit the form
   function submitForm(event) {
     event.preventDefault();
 
@@ -411,8 +419,7 @@ window.onload = displayItemDetails;
       gmail,
       phoneNumber
     }));
-    // Show the overlay
-    document.getElementById('overlay').style.display = 'block';
+
     // Optionally, you can hide the form after submission
     document.getElementById('submitForm').style.display = 'none';
 
@@ -422,17 +429,8 @@ window.onload = displayItemDetails;
 
   // Add an event listener to the form for submission
   document.getElementById('submitForm').addEventListener('submit', submitForm);
-
-  // Function to send email using EmailJS
-  function sendEmail(emailVariables) {
-    emailjs.send("service_vza1phw", "template_r04a2yz", emailVariables)
-      .then(function(response) {
-        console.log('Email sent successfully:', response);
-      }, function(error) {
-        console.error('Email sending failed:', error);
-      });
-  }
 </script>
+
 
 <script src="js/jquery-3.4.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
