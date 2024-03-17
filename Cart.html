@@ -270,18 +270,27 @@ function applyCoupon() {
   const couponCodeInput = document.getElementById('coupon-code');
   const couponCode = couponCodeInput.value.trim();
 
+  let couponPercentage = 0;
+  let appliedCoupon = '';
+
   if (couponCode === 'eweb') {
     couponPercentage = 25;
-    localStorage.setItem('ewebCouponApplied', '25%, eweb');
-    alert('Coupon applied successfully!');
+    appliedCoupon = '25%, eweb';
+    alert('eweb coupon applied successfully!');
+  } else if (couponCode === 'AdMalu') {
+    couponPercentage = 15;
+    appliedCoupon = '15%, AdMalu';
+    alert('AdMalu coupon applied successfully!');
   } else {
-    couponPercentage = 0;
-    localStorage.removeItem('ewebCouponApplied');
     alert('Invalid coupon code.');
   }
 
+  localStorage.setItem('appliedCoupon', appliedCoupon);
+  localStorage.setItem('couponPercentage', couponPercentage);
+
   updateCart();
 }
+
 
 function updateCart() {
   const cartItemsDiv = document.getElementById('cart-items');
@@ -312,7 +321,8 @@ function updateCart() {
   const deliveryCost = calculateDeliveryCost(selectedCountry, itemCount);
 
   // Apply coupon discount
-  const couponPercentage = localStorage.getItem('ewebCouponApplied') ? 25 : 0;
+  let couponPercentage = localStorage.getItem('couponPercentage') || 0;
+  couponPercentage = parseInt(couponPercentage); // Convert to integer
   const discount = (total * couponPercentage) / 100;
   const discountedTotal = total - discount + deliveryCost;
 
