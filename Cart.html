@@ -417,6 +417,15 @@ updateCart();
 
 // Call function to update both delivery cost and cart total in local storage whenever the cart is updated
 window.addEventListener('DOMContentLoaded', updateDeliveryAndTotalInLocalStorage);
+
+  window.addEventListener('beforeunload', function () {
+  localStorage.removeItem('appliedCoupon');
+  localStorage.removeItem('couponPercentage');
+  localStorage.removeItem('discountedTotal');
+});
+
+// Call function to update cart on page load
+window.onload = updateCart;
 </script>
 
 
