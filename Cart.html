@@ -292,6 +292,7 @@ function applyCoupon() {
 }
 
 
+
 function updateCart() {
   const cartItemsDiv = document.getElementById('cart-items');
   const cartTotal = document.getElementById('cart-total');
@@ -344,6 +345,21 @@ function updateCart() {
     submitTotalToInfosPage(discountedTotal);
   }
 }
+
+// Function to reset applied coupon upon leaving the website
+window.addEventListener('beforeunload', function () {
+  localStorage.removeItem('appliedCoupon');
+  localStorage.removeItem('couponPercentage');
+});
+
+// Load the cart and applied coupon when the page loads
+window.onload = function () {
+  updateCart();
+  const appliedCoupon = localStorage.getItem('appliedCoupon');
+  if (appliedCoupon) {
+    alert('A coupon has been applied: ' + appliedCoupon);
+  }
+};
 
 
 // Event listener for country dropdown change
