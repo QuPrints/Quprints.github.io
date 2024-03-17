@@ -123,10 +123,12 @@
         <div class="col-md-6 px-0">
           <div class="img_container">
             <div class="img-box">
-              <video controls src="Custom.mp4">
-                <source src="Soruce2.mp4">
-              </video>
+              <img src="../images/T3_1.png" alt="" id="product-image"/>
             </div>
+          </div>
+          <div class="arrow-buttons-container">
+            <button class="arrow-button" onclick="changeImage('prev')">←</button>
+            <button class="arrow-button" onclick="changeImage('next')">→</button>
           </div>
           <button class="heart-button" id="heart-button" onclick="toggleHeart()">
             <svg class="heart-shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -139,26 +141,31 @@
           <div class="detail-box">
             <div class="heading_container ">
               <h2>
-                Custom Order<hr></h2>
+                Tag<hr>60kr</h2>
             </div>
             <p>
-              Create you custom order with ease!
+              Create your Contact Finder Tag with ease!
               <br><br>
-Create your custom 3D masterpiece effortlessly with our personalized design service. Simply share your vision with us, and watch as we expertly bring it to life in stunning three-dimensional detail. Whether it's a unique prototype, personalized product, or bespoke creation, we're here to turn your ideas into reality. Order now and experience the seamless transformation of your imagination into a tangible masterpiece.
+              Introducing our Contact Information Tag precisely sized plastic piece, measuring 87.5mm x 19mm, exclusively designed for seamless integration with your belongings. This discreet tag serves a singular purpose: prominently display your contact number with the clear directive, "If found, contact [YourPhoneNumber]."<br><br>
 
-Elevate your 3D printing experience today and effortlessly bring your ideas to life!
+              This practical accessory ensures that your valuable items are equipped with a straightforward solution for retrieval. Its streamlined design strikes a balance between subtlety and effectiveness, making it a versatile addition to various possessions.<br><br>
+              
+              Safeguard your belongings with the Contact Information Tag. Order now for a straightforward and efficient way to ensure your lost items find their way back to you.<br><br>
+              Order today for an elevated stamping experience and leave your mark effortlessly!
             </p>
             <br>
             <br>
            <div class="checkbox-container">
-  <input type="radio" id="largeCheckbox" name="size" value="Large" onclick="setPriceAndQuantity(0, 0)">
-  <label for="largeCheckbox">UnColored</label><br>
-  <input type="radio" id="mediumCheckbox" name="size" value="Medium" onclick="setPriceAndQuantity(0, 2)">
-  <label for="mediumCheckbox">Colored  25% Extra</label><br>
+  <input type="radio" id="largeCheckbox" name="size" value="Large" onclick="setPriceAndQuantity(60, 1)">
+  <label for="largeCheckbox">1st 60kr</label><br>
+  <input type="radio" id="mediumCheckbox" name="size" value="Medium" onclick="setPriceAndQuantity(70, 2)">
+  <label for="mediumCheckbox">2st 70kr</label><br>
+  <input type="radio" id="smallCheckbox" name="size" value="Small" onclick="setPriceAndQuantity(90, 5)">
+  <label for="smallCheckbox">5st 90kr</label><br>
 </div>
 
             <div class="file-upload">
-              <input type="text" id="Pn" name="Pn" value="" placeholder="Link" required><br>
+              <input type="text" id="Pn" name="Pn" value="" placeholder="PhoneNr" required><br>
             </div>
             <div class="NOTE">
               <br>
