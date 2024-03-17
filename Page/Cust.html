@@ -109,8 +109,7 @@
               <span>
                 Quantumsprints@gmail.com
               </span>
-            </a>
-
+            </a>        
 
           </div>
         </div>
@@ -124,8 +123,12 @@
         <div class="col-md-6 px-0">
           <div class="img_container">
             <div class="img-box">
-              <img src="../images/T4_1.png" alt="" id="product-image"/>
+              <img src="../images/T3_1.png" alt="" id="product-image"/>
             </div>
+          </div>
+          <div class="arrow-buttons-container">
+            <button class="arrow-button" onclick="changeImage('prev')">←</button>
+            <button class="arrow-button" onclick="changeImage('next')">→</button>
           </div>
           <button class="heart-button" id="heart-button" onclick="toggleHeart()">
             <svg class="heart-shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -138,23 +141,37 @@
           <div class="detail-box">
             <div class="heading_container ">
               <h2>
-                Name Plate<hr>55kr</h2>
+                Tag<hr>60kr</h2>
             </div>
             <p>
-              Create your Name Plate with ease!
+              Create your Contact Finder Tag with ease!
               <br><br>
-              Introducing our Office Name Plate – a sleek and durable solution for personalizing your workspace. Crafted from high-quality plastic, this single-design name plate is perfect for labeling desks and workspaces. With clear and easy-to-read lettering, it effortlessly enhances organization in a minimalistic and professional manner. Simplify and elevate your office space with our practical Office Name Plate – order yours today.
+              Introducing our Contact Information Tag precisely sized plastic piece, measuring 87.5mm x 19mm, exclusively designed for seamless integration with your belongings. This discreet tag serves a singular purpose: prominently display your contact number with the clear directive, "If found, contact [YourPhoneNumber]."<br><br>
+
+              This practical accessory ensures that your valuable items are equipped with a straightforward solution for retrieval. Its streamlined design strikes a balance between subtlety and effectiveness, making it a versatile addition to various possessions.<br><br>
+              
+              Safeguard your belongings with the Contact Information Tag. Order now for a straightforward and efficient way to ensure your lost items find their way back to you.<br><br>
+              Order today for an elevated stamping experience and leave your mark effortlessly!
             </p>
             <br>
             <br>
+           <div class="checkbox-container">
+  <input type="radio" id="largeCheckbox" name="size" value="Large" onclick="setPriceAndQuantity(60, 1)">
+  <label for="largeCheckbox">1st 60kr</label><br>
+  <input type="radio" id="mediumCheckbox" name="size" value="Medium" onclick="setPriceAndQuantity(70, 2)">
+  <label for="mediumCheckbox">2st 70kr</label><br>
+  <input type="radio" id="smallCheckbox" name="size" value="Small" onclick="setPriceAndQuantity(90, 5)">
+  <label for="smallCheckbox">5st 90kr</label><br>
+</div>
+
             <div class="file-upload">
-              <input type="text" id="Pn" name="Pn" value="" placeholder="Name" required><br>
+              <input type="text" id="Pn" name="Pn" value="" placeholder="PhoneNr" required><br>
             </div>
             <div class="NOTE">
               <br>
             </div>
             <div class="btn-box">
-              <a href="javascript:void(0);" onclick="addToCart('NamePlate', 55)">
+              <a href="javascript:void(0);" onclick="addToCart('Tag', 60)">
                 Add to basket
               </a>
             </div>
@@ -164,105 +181,53 @@
     </div>
   </section>
 
-  <script>
-    window.onbeforeunload = function () {
-    // Clear the file input value when leaving the page
-    const imageUpload = document.getElementById('imageUpload');
-    imageUpload.value = '';
-  };
+<script>
+  let selectedQuantity = 0;
+  let selectedPrice = 0;
 
-  // Add this function to update the filename display
-  function updateFilename() {
-      const imageUpload = document.getElementById('imageUpload');
-      const filenameDisplay = document.getElementById('filenameDisplay');
-
-      // Check if a file is selected
-      if (imageUpload.files.length > 0) {
-        filenameDisplay.textContent = imageUpload.files[0].name;
-      } else {
-        filenameDisplay.textContent = ''; // Clear the display if no file is selected
-      }
+  function setPriceAndQuantity(price, quantity) {
+    selectedPrice = price;
+    selectedQuantity = quantity;
   }
-  document.getElementById('imageUpload').addEventListener('change', updateFilename);
 
-    let currentImageIndex = 1;
-
-    function changeImage(direction) {
-      const productImage = document.getElementById('product-image');
-
-      if (direction === 'next') {
-        currentImageIndex = (currentImageIndex % 3) + 1;
-      } else if (direction === 'prev') {
-        currentImageIndex = (currentImageIndex - 2 + 3) % 3 + 1;
-      }
-
-      productImage.src = `../images/T4_${currentImageIndex}.png`;
-    }
-
-    function toggleHeart() {
-      const heartButton = document.getElementById('heart-button');
-      const isRed = heartButton.classList.toggle('red-heart');
-
-      if (isRed) {
-        heartButton.querySelector('.red-heart').style.display = 'block';
-        heartButton.querySelector('.white-heart').style.display = 'none';
-      } else {
-        heartButton.querySelector('.red-heart').style.display = 'none';
-        heartButton.querySelector('.white-heart').style.display = 'block';
-      }
-
-      document.cookie = `heartState=${isRed ? 'red' : 'white'}; path=/`;
-    }
-
-    window.onload = function () {
-      const heartButton = document.getElementById('heart-button');
-      const heartState = getCookie('heartState');
-
-      if (heartState === 'red') {
-        heartButton.classList.add('red-heart');
-        heartButton.querySelector('.red-heart').style.display = 'block';
-        heartButton.querySelector('.white-heart').style.display = 'none';
-      }
-
-      const cartItemCount = document.getElementById('cart-item-count');
-      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-      cartItemCount.textContent = cartItems.length;
-    };
-
-    function getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-
-  function addToCart(itemName, itemPrice) {
+  function addToCart(itemName) {
     const cartItemCount = document.getElementById('cart-item-count');
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const nameInput = document.getElementById('Pn');
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const phoneNrInput = document.getElementById('Pn');
 
-    // Check if the name1Input or name2Input is empty
-    const name = nameInput.value.trim();
-    if (name === '') {
-      alert('Please fill in the Name');
+    // Check if the phoneNrInput is empty
+    const phoneNr = phoneNrInput.value.trim();
+    if (phoneNr === '') {
+      alert('Please fill in the PhoneNr field');
       return;
     }
 
-    const id = `${name}`;
+    // Check if a valid quantity and price are selected
+    if (selectedQuantity === 0 || selectedPrice === 0) {
+      alert('Please select a quantity and price.');
+      return;
+    }
 
-    // Add the item to the cart
-    cartItems.push({
-      id: id,
-      name: itemName,
-      price: itemPrice,
-      quantity: 1, // Always set the quantity to 1
-      Name: name,
-    });
+    // Check if the item is already in the cart
+    const existingItemIndex = cartItems.findIndex(item => item.id === phoneNr && item.name === itemName);
+    if (existingItemIndex !== -1) {
+      cartItems[existingItemIndex].quantity += selectedQuantity;
+    } else {
+      cartItems.push({
+        id: phoneNr, // Use only the phone number as the ID
+        name: itemName,
+        price: selectedPrice,
+        quantity: selectedQuantity,
+      });
+    }
 
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     cartItemCount.textContent = cartItems.length;
+
     alert('Product added to cart!');
   }
-  </script>
+</script>
+
 
   <footer class="container-fluid footer_section">
     <p>
