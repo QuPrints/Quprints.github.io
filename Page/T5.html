@@ -238,16 +238,9 @@
   function addToCart(itemName, itemPrice) {
     const cartItemCount = document.getElementById('cart-item-count');
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const nameInput = "aA";
 
     // Check if the name1Input or name2Input is empty
-    const name = nameInput.value.trim();
-    if (name === '') {
-      alert('Please fill in the Name');
-      return;
-    } else {
-        alert('Item added to cart!');
-    }
+    alert('Item added to cart!');
 
     const id = `${name}`;
 
