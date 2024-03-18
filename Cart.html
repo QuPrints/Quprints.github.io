@@ -227,6 +227,12 @@
   </section>
 
 <script>
+
+function submitTotalToInfosPage(total) {
+  // Save the total to local storage
+  localStorage.setItem('cartTotal', total.toFixed(2));
+}
+
 // Function to calculate delivery cost based on selected country and number of items
 function calculateDeliveryCost(selectedCountry, itemCount) {
   if (selectedCountry === 'Sweden') {
@@ -241,8 +247,13 @@ function calculateDeliveryCost(selectedCountry, itemCount) {
   }
 }
 
+// Clear coupon code on page load/refresh
+localStorage.removeItem('ewebCouponApplied');
+
 // Load cart items from localStorage
 const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+// Initialize total variable
+let total = 0;
 
 // Load selected country from localStorage
 const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
@@ -253,36 +264,25 @@ countryDropdown.value = selectedCountry;
 countryDropdown.addEventListener('change', function () {
   const selectedCountry = countryDropdown.value;
   localStorage.setItem('selectedCountry', selectedCountry);
-  updateCart();
 });
 
-// Function to apply coupon
 function applyCoupon() {
   const couponCodeInput = document.getElementById('coupon-code');
   const couponCode = couponCodeInput.value.trim();
 
-  let couponPercentage = 0;
-  let appliedCoupon = '';
-
   if (couponCode === 'eweb') {
     couponPercentage = 25;
-    appliedCoupon = '25%, eweb';
-    alert('eweb coupon applied successfully!');
-  } else if (couponCode === 'AdMalu') {
-    couponPercentage = 15;
-    appliedCoupon = '15%, AdMalu';
-    alert('AdMalu coupon applied successfully!');
+    localStorage.setItem('ewebCouponApplied', '25%, eweb');
+    alert('Coupon applied successfully!');
   } else {
+    couponPercentage = 0;
+    localStorage.removeItem('ewebCouponApplied');
     alert('Invalid coupon code.');
   }
-
-  localStorage.setItem('appliedCoupon', appliedCoupon);
-  localStorage.setItem('couponPercentage', couponPercentage);
 
   updateCart();
 }
 
-// Function to update cart
 function updateCart() {
   const cartItemsDiv = document.getElementById('cart-items');
   const cartTotal = document.getElementById('cart-total');
@@ -292,6 +292,9 @@ function updateCart() {
   cartItemsDiv.innerHTML = '';
 
   let total = 0;
+
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  const itemCount = cartItems.length;
 
   cartItems.forEach((item, index) => {
     const cartItemDiv = document.createElement('div');
@@ -305,31 +308,53 @@ function updateCart() {
   });
 
   // Calculate delivery cost
-  const deliveryCost = calculateDeliveryCost(selectedCountry, cartItems.length);
+  const selectedCountry = document.getElementById('country-dropdown').value;
+  const deliveryCost = calculateDeliveryCost(selectedCountry, itemCount);
 
   // Apply coupon discount
-  let couponPercentage = localStorage.getItem('couponPercentage') || 0;
-  couponPercentage = parseInt(couponPercentage); // Convert to integer
+  const couponPercentage = localStorage.getItem('ewebCouponApplied') ? 25 : 0;
   const discount = (total * couponPercentage) / 100;
   const discountedTotal = total - discount + deliveryCost;
 
   cartTotal.textContent = ` ${discountedTotal.toFixed(2)} Kr`;
   deliveryText.textContent = `Delivery: ${deliveryCost.toFixed(2)}kr`;
 
+  const orderButton = document.getElementById('order-button');
+  orderButton.style.display = itemCount > 0 ? 'block' : 'none';
+
   // Save discounted total to local storage
   localStorage.setItem('discountedTotal', discountedTotal.toFixed(2));
+
+  // Update delivery cost and cart total in local storage
+  updateDeliveryAndTotalInLocalStorage();
+
+  // Check if a coupon is applied
+  if (couponPercentage > 0) {
+    // If a coupon is applied, submit the discounted total to Infos.html
+    submitTotalToInfosPage(discountedTotal);
+  }
 }
 
-// Load the cart and applied coupon when the page loads
-window.onload = function () {
-  updateCart();
-  const appliedCoupon = localStorage.getItem('appliedCoupon');
-  if (appliedCoupon) {
-    alert('A coupon has been applied: ' + appliedCoupon);
-  }
-};
 
-// Function to delete item from cart
+// Event listener for country dropdown change
+countryDropdown.addEventListener('change', function () {
+  // Clear the existing cart items before changing the country
+  const cartItemsDiv = document.getElementById('cart-items');
+  cartItemsDiv.innerHTML = '';
+
+  // Update the country and cart based on the selected country
+  const selectedCountry = document.getElementById('country-dropdown').value;
+  localStorage.setItem('selectedCountry', selectedCountry);
+
+  // Refresh the cart based on the updated country
+  updateCart();
+});
+
+// Event listener for country dropdown change
+countryDropdown.addEventListener('change', function () {
+  updateCart(); // Update the cart when the country is changed
+});
+
 function deleteItem(index) {
   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -340,17 +365,18 @@ function deleteItem(index) {
   } else {
     alert('Invalid item index.');
   }
+
+  localStorage.removeItem('ewebCouponApplied');
 }
 
-// Function to place order
 function placeOrder() {
   location.href = 'Info.html';
 }
 
-// PayPal buttons configuration
+window.onload = updateCart;
+
 paypal.Buttons({
   createOrder: function (data, actions) {
-    const total = parseFloat(document.getElementById('cart-total').textContent);
     return actions.order.create({
       purchase_units: [{
         amount: {
@@ -363,13 +389,24 @@ paypal.Buttons({
   onApprove: function (data, actions) {
     return actions.order.capture().then(function (details) {
       alert('Transaction completed by ' + details.payer.name.given_name);
-      const cartItems = JSON.parse(localStorage.getItem('cartItems'));
       cartItems.length = 0;
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
       updateCart();
     });
   }
-}).render('#paypal-button-container');
+});
+
+function updateDeliveryAndTotalInLocalStorage() {
+    const deliveryCost = document.querySelector('.delivery-text').textContent;
+    const cartTotal = document.getElementById('cart-total').textContent;
+    localStorage.setItem('deliveryCost', deliveryCost);
+    localStorage.setItem('cartTotal', cartTotal);
+}
+
+// Update delivery cost and cart total in local storage when cart is updated
+updateCart();
+
+// Call function to update both delivery cost and cart total in local storage whenever the cart is updated
+window.addEventListener('DOMContentLoaded', updateDeliveryAndTotalInLocalStorage);
 </script>
 
 
