@@ -85,7 +85,7 @@
     }
   }
 
-  .btn-box a {
+  .btn-box a.pressed {
     animation: buttonPress 0.3s ease;
   }
 
@@ -179,7 +179,7 @@
               <br>
             </div>
             <div class="btn-box">
-              <a href="javascript:void(0);" onclick="addToCart('Love-Heart', 145)">
+              <a href="javascript:void(0);" onclick="addToCart('Love-Heart', 145)" id="add-to-cart-button">
                 Add to basket
               </a>
             </div>
@@ -292,6 +292,11 @@
       cartItemCount.textContent = cartItems.length;
       alert('Product added to cart!');
     }
+
+    // Add animation class when button is clicked
+    document.getElementById('add-to-cart-button').addEventListener('click', function () {
+      this.classList.add('pressed');
+    });
   </script>
 
   <footer class="container-fluid footer_section">
