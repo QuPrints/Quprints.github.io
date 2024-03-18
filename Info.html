@@ -146,7 +146,18 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
 
     <style>
-        /* Centering the container */
+       body {
+           background-image: url('images/contact-bg.jpg'); /* Background image */
+           background-size: cover; /* Make the background cover the entire screen */
+           background-repeat: no-repeat; /* Prevent the background from repeating */
+           background-position: center; /* Center the background image */
+
+ 
+           overflow-y: hidden;
+           overflow-x: hidden;
+           
+       }
+
         .container {
             display: flex;
             justify-content: center;
@@ -154,9 +165,8 @@
             height: 100vh;
             text-align: center;
             flex-direction: column;
-            background-image: url('images/contact-bj.jpg'); /* Background image */
-            background-size: cover; /* Cover the entire viewport */
-            background-position: center; /* Center the background image */
+            
+        
         }
 
         /* Styles for button */
@@ -177,12 +187,14 @@
         .thanks-text {
             font-size: 32px; /* Larger font size */
             margin-bottom: 20px; /* Add some space below */
+            color: white;
         }
 
         /* Larger font size for the processing message */
         .processing-message {
             font-size: 28px; /* Larger font size */
             margin-bottom: 20px; /* Add some space below */
+            color: white;
         }
     </style>
 </head>
@@ -196,7 +208,6 @@
     </div>
 </body>
 </html>
-
     </div>
   </div>
 
