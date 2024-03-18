@@ -138,21 +138,64 @@
   <div class="overlay-content">
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quprint</title>
-  <link rel="icon" type="image/x-icon" href="images/favicon.png">
-  <!-- Include your stylesheets, scripts, and other head elements here -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quprint</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
 
+    <style>
+        /* Centering the container */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            flex-direction: column;
+            background-image: url('images/contact-bj.jpg'); /* Background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the background image */
+        }
 
+        /* Styles for button */
+        .redirect-button {
+            padding: 20px 40px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 24px; /* Larger font size */
+        }
+
+        .redirect-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Larger font size for the "Thanks for Ordering!" text */
+        .thanks-text {
+            font-size: 32px; /* Larger font size */
+            margin-bottom: 20px; /* Add some space below */
+        }
+
+        /* Larger font size for the processing message */
+        .processing-message {
+            font-size: 28px; /* Larger font size */
+            margin-bottom: 20px; /* Add some space below */
+        }
+    </style>
 </head>
-
 <body>
-
-  Thanks For Ordering
+    <div class="container">
+        <div>
+            <p class="thanks-text"><strong>Thanks for Ordering! We'll contact you via your Gmail address.</strong></p>
+            <p class="processing-message">We are currently processing your order and will notify you once it's ready for delivery.</p>
+        </div>
+        <a href="index.html" class="redirect-button">Return to Home</a>
+    </div>
+</body>
+</html>
 
     </div>
   </div>
