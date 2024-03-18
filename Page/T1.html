@@ -312,22 +312,8 @@
   localStorage.setItem('cartItems', JSON.stringify(cartItems));
   cartItemCount.textContent = cartItems.length;
 
-  // Show the modal
-  const modal = document.getElementById("myModal");
-  modal.style.display = "block";
-
-  // Hide the modal when close button is clicked
-  const closeBtn = document.querySelector(".close");
-  closeBtn.addEventListener("click", function () {
-    modal.style.display = "none";
-  });
-
-  // Also hide the modal when clicked outside of it
-  window.addEventListener("click", function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  });
+  // Show a pop-up message indicating the item has been added to the cart
+  alert('Item added to cart');
 
   // Add the "clicked" class to the button
   const addButton = document.querySelector('.btn-box a');
@@ -338,6 +324,7 @@
     addButton.classList.remove('clicked');
   }, 300); // Adjust the timeout to match the duration of your transition
 }
+
 
   </script>
 
