@@ -216,6 +216,18 @@
 <script>
   emailjs.init("Kr1Jkm3Mtfa8tJk3T");
 
+   function updateOverlayContent() {
+    // Update overlay content whenever there's a change in the form fields
+    displayItemDetails();
+  }
+
+  // Add event listeners to form fields for input events
+  document.getElementById('name').addEventListener('input', updateOverlayContent);
+  document.getElementById('street').addEventListener('input', updateOverlayContent);
+  document.getElementById('Code').addEventListener('input', updateOverlayContent);
+  document.getElementById('city').addEventListener('input', updateOverlayContent);
+  document.getElementById('gmail').addEventListener('input', updateOverlayContent);
+  document.getElementById('Pn').addEventListener('input', updateOverlayContent);
   function displayItemDetails() {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const infosContainer = document.getElementById('infos-container');
