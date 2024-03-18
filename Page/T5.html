@@ -147,7 +147,9 @@
             </p>
             <br>
             <br>
-            
+            <div class="file-upload">
+              <input type="text" id="Pn" name="Pn" value="" placeholder="Name" required><br>
+            </div>
             <div class="NOTE">
               <br>
             </div>
@@ -236,11 +238,11 @@
   function addToCart(itemName, itemPrice) {
     const cartItemCount = document.getElementById('cart-item-count');
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const nameInput = document.getElementById('Pn');
+    const nameInput = "aA";
 
     // Check if the name1Input or name2Input is empty
     const name = nameInput.value.trim();
-    if (name === 'soaos123!!3') {
+    if (name === '') {
       alert('Please fill in the Name');
       return;
     } else {
