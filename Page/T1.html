@@ -8,7 +8,6 @@
     right: 0px;
     z-index: 1000;
   }
-
   .cart-item-count {
     position: absolute;
     top: 50%;
@@ -23,11 +22,9 @@
     min-width: 20px;
     text-align: center;
   }
-
   .NOTE {
     color: red;
   }
-
   .arrow-button {
     background-color: transparent;
     border: none;
@@ -41,7 +38,6 @@
     justify-content: center;
     margin-top: 10px;
   }
-
   .heart-button {
     background-color: transparent;
     border: none;
@@ -71,24 +67,6 @@
     stroke: black;
     stroke-width: 2;
   }
-
-  /* Animation for button press effect */
-  @keyframes buttonPress {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(0.9);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-
-  .btn-box a.pressed {
-    animation: buttonPress 0.3s ease;
-  }
-
 </style>
 
 <head>
@@ -131,7 +109,7 @@
               <span>
                 Quantumsprints@gmail.com
               </span>
-            </a>
+            </a>        
 
           </div>
         </div>
@@ -145,13 +123,13 @@
         <div class="col-md-6 px-0">
           <div class="img_container">
             <div class="img-box">
-              <img src="../images/T1_1.png" alt="" id="product-image" />
+              <img src="../images/T1_1.png" alt="" id="product-image"/>
             </div>
           </div>
           <button class="heart-button" id="heart-button" onclick="toggleHeart()">
             <svg class="heart-shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path class="red-heart" d="M12 21.35l-1.45-1.32C5.4 14.25 2 11.16 2 7.5 2 4.42 4.42 2 7.5 2 9.24 2 10.91 2.89 12 4.35 13.09 2.89 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.65-3.4 6.75-8.55 12.03L12 21.35z" />
-              <path class="white-heart" d="M12 21.35l-1.45-1.32C5.4 14.25 2 11.16 2 7.5 2 4.42 4.42 2 7.5 2 9.24 2 10.91 2.89 12 4.35 13.09 2.89 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.65-3.4 6.75-8.55 12.03L12 21.35z" />
+              <path class="red-heart" d="M12 21.35l-1.45-1.32C5.4 14.25 2 11.16 2 7.5 2 4.42 4.42 2 7.5 2 9.24 2 10.91 2.89 12 4.35 13.09 2.89 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.65-3.4 6.75-8.55 12.03L12 21.35z"/>
+              <path class="white-heart" d="M12 21.35l-1.45-1.32C5.4 14.25 2 11.16 2 7.5 2 4.42 4.42 2 7.5 2 9.24 2 10.91 2.89 12 4.35 13.09 2.89 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.65-3.4 6.75-8.55 12.03L12 21.35z"/>
             </svg>
           </button>
         </div>
@@ -159,10 +137,9 @@
           <div class="detail-box">
             <div class="heading_container ">
               <h2>
-                Love Heart
-                <hr>145kr</h2>
+                Love Heart<hr>145kr</h2>
             </div>
-            <p>
+           <p>
               Create your custom Love-Heart with ease!
               <br><br>
               Create a timeless symbol of love with our personalized Heart design. effortlessly input the two names that hold a special place in your heart, and watch as they elegantly unite within a charming heart emblem. This unique piece captures the essence of your connection, making it a perfect gift for anniversaries, birthdays, or any occasion that celebrates love. Order now for your unique love story into a beautiful keepsake.
@@ -172,14 +149,14 @@
             <br>
             <br>
             <div class="file-upload">
-              <input type="text" id="Pn" name="Pn" value="" placeholder="First Name" required><br><br>
+              <input type="text" id="Pn" name="Pn" value="" placeholder="First Name" required><br><br>              
               <input type="text" id="Pn1" name="Pn1" value="" placeholder="Second Name" required><br>
             </div>
             <div class="NOTE">
               <br>
             </div>
             <div class="btn-box">
-              <a href="javascript:void(0);" onclick="addToCart('Love-Heart', 145)" id="add-to-cart-button">
+              <a href="javascript:void(0);" onclick="addToCart('Love-Heart', 145)">
                 Add to basket
               </a>
             </div>
@@ -189,7 +166,7 @@
     </div>
   </section>
 
-  <script>
+ <script>
     window.onbeforeunload = function () {
       // Clear the file input value when leaving the page
       const imageUpload = document.getElementById('imageUpload');
@@ -262,41 +239,36 @@
       if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
-    function addToCart(itemName, itemPrice) {
-      const cartItemCount = document.getElementById('cart-item-count');
-      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-      const name1Input = document.getElementById('Pn');
-      const name2Input = document.getElementById('Pn1');
+  function addToCart(itemName, itemPrice) {
+    const cartItemCount = document.getElementById('cart-item-count');
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const name1Input = document.getElementById('Pn');
+    const name2Input = document.getElementById('Pn1');
 
-      // Check if the name1Input or name2Input is empty
-      const name1 = name1Input.value.trim();
-      const name2 = name2Input.value.trim();
-      if (name1 === '' || name2 === '') {
-        alert('Please fill in both Names fields');
-        return;
-      }
-
-      const id = `${name1}, ${name2}`;
-
-      // Add the item to the cart
-      cartItems.push({
-        id: id,
-        name: itemName,
-        price: itemPrice,
-        quantity: 1, // Always set the quantity to 1
-        Name1: name1,
-        Name2: name2,
-      });
-
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      cartItemCount.textContent = cartItems.length;
-      alert('Product added to cart!');
+    // Check if the name1Input or name2Input is empty
+    const name1 = name1Input.value.trim();
+    const name2 = name2Input.value.trim();
+    if (name1 === '' || name2 === '') {
+      alert('Please fill in both Names fields');
+      return;
     }
 
-    // Add animation class when button is clicked
-    document.getElementById('add-to-cart-button').addEventListener('click', function () {
-      this.classList.add('pressed');
+    const id = `${name1}, ${name2}`;
+
+    // Add the item to the cart
+    cartItems.push({
+      id: id,
+      name: itemName,
+      price: itemPrice,
+      quantity: 1, // Always set the quantity to 1
+      Name1: name1,
+      Name2: name2,
     });
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    cartItemCount.textContent = cartItems.length;
+    alert('Product added to cart!');
+  }
   </script>
 
   <footer class="container-fluid footer_section">
