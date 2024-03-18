@@ -8,7 +8,9 @@
     right: 0px;
     z-index: 1000;
   }
-  .cart-item-count {
+  .cart-item-count { else {
+        alert('Item added to cart!');
+    }
     position: absolute;
     top: 50%;
     left: 50%;
@@ -200,6 +202,8 @@
     if (phoneNr === '') {
       alert('Please fill in the PhoneNr field');
       return;
+    } else {
+        alert('Item added to cart!');
     }
 
     // Check if a valid quantity and price are selected
