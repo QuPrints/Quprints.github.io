@@ -216,18 +216,39 @@
 <script>
   emailjs.init("Kr1Jkm3Mtfa8tJk3T");
 
-   function updateOverlayContent() {
-    // Update overlay content whenever there's a change in the form fields
-    displayItemDetails();
-  }
 
-  // Add event listeners to form fields for input events
-  document.getElementById('name').addEventListener('input', updateOverlayContent);
-  document.getElementById('street').addEventListener('input', updateOverlayContent);
-  document.getElementById('Code').addEventListener('input', updateOverlayContent);
-  document.getElementById('city').addEventListener('input', updateOverlayContent);
-  document.getElementById('gmail').addEventListener('input', updateOverlayContent);
-  document.getElementById('Pn').addEventListener('input', updateOverlayContent);
+  function updateOverlayContent() {
+      // Retrieve form data
+      const fullName = document.getElementById('name').value;
+      const streetAddress = document.getElementById('street').value;
+      const postalCode = document.getElementById('Code').value;
+      const city = document.getElementById('city').value;
+      const gmail = document.getElementById('gmail').value;
+      const phoneNumber = document.getElementById('Pn').value;
+
+      // Update overlay content dynamically
+      const overlayContent = `
+        <div>
+          <p>FullName: ${fullName}</p>
+          <p>Gmail: ${gmail}</p>
+          <p>PhoneNumber: ${phoneNumber}</p>
+          <p>Street Address: ${streetAddress}</p>
+          <p>Postal Code: ${postalCode}</p>
+          <p>City: ${city}</p>
+        </div>
+      `;
+      document.querySelector('.overlay-content').innerHTML = overlayContent;
+    }
+
+    // Add event listeners to form inputs for changes
+    const formInputs = document.querySelectorAll('#submitForm input');
+    formInputs.forEach(input => {
+      input.addEventListener('input', updateOverlayContent);
+    });
+
+
+  
+  
   function displayItemDetails() {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const infosContainer = document.getElementById('infos-container');
