@@ -249,47 +249,43 @@
     }
 
     function addToCart(itemName, itemPrice) {
-  const cartItemCount = document.getElementById('cart-item-count');
-  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  const name1Input = document.getElementById('Pn');
-  const name2Input = document.getElementById('Pn1');
+    const cartItemCount = document.getElementById('cart-item-count');
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const name1Input = document.getElementById('Pn');
+    const name2Input = document.getElementById('Pn1');
 
-  // Check if the name1Input or name2Input is empty
-  const name1 = name1Input.value.trim();
-  const name2 = name2Input.value.trim();
-  if (name1 === '' || name2 === '') {
-    alert('Please fill in both Names fields');
-    return;
+    // Check if the name1Input or name2Input is empty
+    const name1 = name1Input.value.trim();
+    const name2 = name2Input.value.trim();
+    if (name1 === '' || name2 === '') {
+      alert('Please fill in both Names fields');
+      return;
+    }
+
+    const id = `${name1}, ${name2}`;
+
+    // Add the item to the cart
+    cartItems.push({
+      id: id,
+      name: itemName,
+      price: itemPrice,
+      quantity: 1, // Always set the quantity to 1
+      Name1: name1,
+      Name2: name2,
+    });
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    cartItemCount.textContent = cartItems.length;
+
+    // Add the "clicked" class to the button
+    const addButton = document.querySelector('.btn-box a');
+    addButton.classList.add('clicked');
+
+    // Remove the "clicked" class after the animation ends
+    setTimeout(() => {
+      addButton.classList.remove('clicked');
+    }, 300); // Adjust the timeout to match the duration of your transition
   }
-
-  const id = `${name1}, ${name2}`;
-
-  // Add the item to the cart
-  cartItems.push({
-    id: id,
-    name: itemName,
-    price: itemPrice,
-    quantity: 1, // Always set the quantity to 1
-    Name1: name1,
-    Name2: name2,
-  });
-
-  localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  cartItemCount.textContent = cartItems.length;
-
-  // Add the "clicked" class to the button
-  const addButton = document.querySelector('.btn-box a');
-  addButton.classList.add('clicked');
-
-  // Remove the "clicked" class after the animation ends
-  setTimeout(() => {
-    addButton.classList.remove('clicked');
-  }, 300); // Adjust the timeout to match the duration of your transition
-  
-  // Show alert when item is added to cart
-  alert('Item added to cart!');
-}
-
   </script>
 
   <footer class="container-fluid footer_section">
