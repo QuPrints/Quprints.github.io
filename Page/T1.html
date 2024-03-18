@@ -67,6 +67,15 @@
     stroke: black;
     stroke-width: 2;
   }
+
+  .btn-box a {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .btn-box a.clicked {
+    background-color: lightblue; /* Change to your desired light color */
+    transform: scale(1.1); /* Increase the size */
+  }
 </style>
 
 <head>
@@ -239,7 +248,7 @@
       if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
-  function addToCart(itemName, itemPrice) {
+    function addToCart(itemName, itemPrice) {
     const cartItemCount = document.getElementById('cart-item-count');
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const name1Input = document.getElementById('Pn');
@@ -267,7 +276,15 @@
 
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     cartItemCount.textContent = cartItems.length;
-    alert('Product added to cart!');
+
+    // Add the "clicked" class to the button
+    const addButton = document.querySelector('.btn-box a');
+    addButton.classList.add('clicked');
+
+    // Remove the "clicked" class after the animation ends
+    setTimeout(() => {
+      addButton.classList.remove('clicked');
+    }, 300); // Adjust the timeout to match the duration of your transition
   }
   </script>
 
