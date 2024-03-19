@@ -237,6 +237,31 @@
   </section>
 
   <script>
+ function toggleCart() {
+            window.location.href = 'Cart.html';
+        }
+
+        function placeOrder() {
+            const totalAmount = parseFloat(
+                document.getElementById('cart-total').textContent.replace('Total: ', '').replace(' Kr', '')
+            );
+            if (totalAmount == 0) {
+                alert('Your cart is empty. Add items before placing an order.');
+            } else {
+                window.open('Cart.html', '_self');
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+     
     window.onbeforeunload = function () {
     // Clear the file input value when leaving the page
     const imageUpload = document.getElementById('imageUpload');
