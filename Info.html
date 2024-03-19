@@ -412,7 +412,8 @@
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
                 // Show overlay upon successful payment
-                document.getElementById("overlay").style.display = "block";
+                window.location.href = "Infos.html";
+
             });
         }
     }).render('#paypal-button-container');
