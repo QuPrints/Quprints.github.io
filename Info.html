@@ -138,76 +138,251 @@
   <div class="overlay-content">
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quprint</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quprint</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.png">
+  <!-- Include your stylesheets, scripts, and other head elements here -->
 
     <style>
-       body {
-           background-image: url('images/contact-bg.jpg'); /* Background image */
-           background-size: cover; /* Make the background cover the entire screen */
-           background-repeat: no-repeat; /* Prevent the background from repeating */
-           background-position: center; /* Center the background image */
+    /* Reset default margin and padding */
+    body, h1, h2, h3, p, ul, li {
+      margin: 0;
+      padding: 0;
+    }
 
- 
-           overflow-y: hidden;
-           overflow-x: hidden;
-           
-       }
+    /* Remove default body margin */
+    body {
+      margin: 0;
+    }
 
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            flex-direction: column;
-            
-        
-        }
+    /* Add a container around infos-container */
+    .infos-container-wrapper {
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 100vh; /* Make the background cover the full screen height */
+    }
 
-        /* Styles for button */
-        .redirect-button {
-            padding: 20px 40px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 24px; /* Larger font size */
-        }
+    /* Apply a background image to the pseudo-element */
+    .infos-container-wrapper::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('images/hero-bg.jpg') center/cover no-repeat; /* Updated background image path */
+      filter: blur(5px); /* Apply a slight blur */
+      z-index: -1; /* Send the pseudo-element to the back */
+    }
 
-        .redirect-button:hover {
-            background-color: #0056b3;
-        }
+    /* Add styling to infos-container */
+    #infos-container {
+      text-align: center;
+      padding: 20px;
+      border: 2px solid black; /* Updated border color to black */
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px; /* Adjust the max-width as needed */
+      margin: 0 auto;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1; /* Bring the content to the front */
+      background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent white background */
+      overflow-y: auto; /* Enable vertical scrollbar when content overflows */
+      max-height: 60vh; /* Added fixed height */
+    }
+  </style>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 
-        /* Larger font size for the "Thanks for Ordering!" text */
-        .thanks-text {
-            font-size: 32px; /* Larger font size */
-            margin-bottom: 20px; /* Add some space below */
-            color: white;
-        }
-
-        /* Larger font size for the processing message */
-        .processing-message {
-            font-size: 28px; /* Larger font size */
-            margin-bottom: 20px; /* Add some space below */
-            color: white;
-        }
-    </style>
 </head>
+
 <body>
-    <div class="container">
-        <div>
-            <p class="thanks-text"><strong>Thanks for Ordering! We'll contact you via your Gmail address.</strong></p>
-            <p class="processing-message">We are currently processing your order and will notify you once it's ready for delivery.</p>
-        </div>
-        <a href="index.html" class="redirect-button">Return to Home</a>
+
+  <!-- Wrap infos-container in the new container -->
+  <div class="infos-container-wrapper">
+    <div id="infos-container">
+      <!-- Your content goes here -->
     </div>
+  </div>
 </body>
-</html>
+<!-- Your existing HTML content -->
+
+<script>
+  emailjs.init("Kr1Jkm3Mtfa8tJk3T");
+
+  function displayItemDetails() {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const infosContainer = document.getElementById('infos-container');
+    infosContainer.innerHTML = ''; // Clear previous content
+
+    // Counter for numbering itemDetails
+    let itemCounter = 1;
+
+    cartItems.forEach((item, index) => {
+      const itemDetails = document.createElement('div');
+      itemDetails.innerHTML = `
+            <br>
+            <p>ID: ${item.id}</p>
+            <p>Item: ${item.name}</p>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Price: ${item.price.toFixed(2)} Kr</p>
+            <hr>
+        `;
+      infosContainer.appendChild(itemDetails);
+
+      itemCounter++; // Increment the counter
+    });
+
+    // Get and display form data
+    const formData = JSON.parse(localStorage.getItem('formData')) || {};
+    const formDetails = document.createElement('div');
+    formDetails.innerHTML = `
+          <p>FullName: ${formData.fullName}</p>
+          <p>Gmail: ${formData.gmail}</p>
+          <p>PhoneNumber: ${formData.phoneNumber}</p>
+          <p>Street Address: ${formData.streetAddress}</p>
+          <p>Postal Code: ${formData.postalCode}</p>
+          <p>City: ${formData.city}</p>
+      `;
+    infosContainer.appendChild(formDetails);
+
+    // Get and display selected country
+    const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
+    const countryDetails = document.createElement('p');
+    countryDetails.textContent = `Country: ${selectedCountry}`;
+    infosContainer.appendChild(countryDetails);
+
+    // Add horizontal rule between form data and delivery details
+    const hrElementForm = document.createElement('hr');
+    infosContainer.appendChild(hrElementForm);
+
+    // Get and display delivery cost and total
+    const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
+    if (ewebCouponApplied) {
+      const couponDetails = document.createElement('p');
+      couponDetails.textContent = `Coupon: ${ewebCouponApplied}`;
+      infosContainer.appendChild(couponDetails);
+    }
+
+    const deliveryCost = localStorage.getItem('deliveryCost') || '0.00 kr';
+    const discountedTotal = localStorage.getItem('discountedTotal') || '0.00 kr';
+
+    const deliveryDetails = document.createElement('p');
+    deliveryDetails.textContent = `Delivery Cost: ${deliveryCost}`;
+    infosContainer.appendChild(deliveryDetails);
+
+    const totalDetails = document.createElement('p');
+    totalDetails.textContent = `Cart Total: ${discountedTotal}`;
+    infosContainer.appendChild(totalDetails);
+
+    // Add larger horizontal rule above Order Number
+    const hrElementOrder = document.createElement('hr');
+    hrElementOrder.style.height = '4px';
+    infosContainer.appendChild(hrElementOrder);
+
+    // Generate and display Order Number with adjusted font size
+    const orderNumber = generateOrderNumber(); // Generate the order number
+    const orderNumberDetails = document.createElement('div');
+    orderNumberDetails.innerHTML = `<p style="font-size: 18px;">Order Number: ${orderNumber}</p>`;
+    infosContainer.appendChild(orderNumberDetails);
+  }
+
+  // Function to generate a random 10-digit order number
+  function generateOrderNumber() {
+    return Math.floor(Math.random() * 9000000000) + 1000000000;
+  }
+
+  // Function to get other data needed for EmailJS template
+  function getEmailVariables() {
+    const formData = JSON.parse(localStorage.getItem('formData')) || {};
+    const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
+    const deliveryCost = localStorage.getItem('deliveryCost') || '0.00 kr';
+    const discountedTotal = localStorage.getItem('discountedTotal') || '0.00 kr';
+
+    return {
+      Name: formData.fullName,
+      Gmail: formData.gmail,
+      PhoneNr: formData.phoneNumber,
+      Adress: formData.streetAddress,
+      Postal: formData.postalCode,
+      City: formData.city,
+      Country: selectedCountry,
+      Delivery: deliveryCost,
+      Price: discountedTotal
+    };
+  }
+
+  // Function to get variables for each cart item
+  function getCartItemsVariables(cartItems) {
+    const cartItemsVariables = {};
+    cartItems.forEach((item, index) => {
+      const itemCounter = index + 1;
+      cartItemsVariables[`Id${itemCounter}`] = item.id;
+      cartItemsVariables[`Item${itemCounter}`] = item.name;
+      cartItemsVariables[`Quantity${itemCounter}`] = item.quantity;
+      cartItemsVariables[`Price${itemCounter}`] = item.price.toFixed(2);
+    });
+    return cartItemsVariables;
+  }
+
+  // Function to send email using EmailJS
+  function sendEmail(emailVariables) {
+    emailjs.send("service_vza1phw", "template_r04a2yz", emailVariables)
+      .then(function(response) {
+        console.log('Email sent successfully:', response);
+      }, function(error) {
+        console.error('Email sending failed:', error);
+      });
+  }
+
+  // Call this function when the Infos.html page loads
+  window.onload = function() {
+    displayItemDetails();
+
+    // Add an event listener to the form for submission
+    document.getElementById('submitForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Retrieve form data
+      const fullName = document.getElementById('name').value;
+      const streetAddress = document.getElementById('street').value;
+      const postalCode = document.getElementById('Code').value;
+      const city = document.getElementById('city').value;
+      const gmail = document.getElementById('gmail').value;
+      const phoneNumber = document.getElementById('Pn').value;
+
+      // Store form data in localStorage for Infos.html to access
+      localStorage.setItem('formData', JSON.stringify({
+        fullName,
+        streetAddress,
+        postalCode,
+        city,
+        gmail,
+        phoneNumber
+      }));
+      // Show the overlay
+      document.getElementById('overlay').style.display = 'block';
+      // Optionally, you can hide the form after submission
+      document.getElementById('submitForm').style.display = 'none';
+
+      // Prepare and send email using EmailJS
+      const emailVariables = {
+        ...getEmailVariables(),
+        ...getCartItemsVariables(JSON.parse(localStorage.getItem('cartItems')) || []),
+        OrderNumber: generateOrderNumber(), // Generate the order number
+        ordn: orderNumber // Submit OrderNumber to {{ordn}} in the template
+      };
+      sendEmail(emailVariables);
+    });
+  };
+</script>
+
     </div>
   </div>
 
