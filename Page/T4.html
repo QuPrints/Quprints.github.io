@@ -166,6 +166,22 @@
       </div>
     </div>
 
+    <div class="CartTop">
+        <div class="cart" onclick="toggleCart()">
+            <img src="images/Cart.png" width="70px">
+        </div>
+        <div class="cart-item-count" id="cart-item-count"></div>
+        <div class="cart-content" id="cart-content">
+            <div id="cart-items"></div>
+            <div class="cart-summary">
+                <h3>Total: <span id="cart-total">0.00</span></h3>
+                <button class="order-button" onclick="placeOrder()">Order</button>
+            </div>
+        </div>
+    </div>
+
+
+     
     <header class="header_section">
       <div class="header_top">
         <div class="container-fluid">
