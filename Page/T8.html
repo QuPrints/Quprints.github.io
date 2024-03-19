@@ -178,7 +178,7 @@
 
     <div class="CartTop">
         <div class="cart" onclick="toggleCart()">
-            <img src="images/Cart.png" width="70px">
+            <img src="../images/Cart.png" width="70px">
         </div>
         <div class="cart-item-count" id="cart-item-count"></div>
         <div class="cart-content" id="cart-content">
@@ -261,7 +261,7 @@
 
   <script>
  function toggleCart() {
-            window.location.href = 'Cart.html';
+            window.location.href = '../Cart.html';
         }
 
         function placeOrder() {
@@ -271,7 +271,7 @@
             if (totalAmount == 0) {
                 alert('Your cart is empty. Add items before placing an order.');
             } else {
-                window.open('Cart.html', '_self');
+                window.open('../Cart.html', '_self');
             }
         }
 
