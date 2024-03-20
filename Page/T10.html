@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+   .CartTop {
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        z-index: 1000;
+    }
+
+    .cart {
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+    }
+
+    .cart-content {
+        color: white;
+        display: none;
+        position: absolute;
+        top: 120px;
+        right: 20px;
+        width: 400px;
+        height: 300px;
+        background-color: #2c2c2cc7;
+        padding: 20px;
+        border: 1px solid #2c2c2cc7;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        overflow-y: auto;
+    }
+
+    .cart-item-count {
+        position: absolute;
+        color: rgb(0, 0, 0);
+        font-size: 12px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .cart-summary {
+        text-align: center;
+        position: sticky;
+        bottom: -20px;
+        background-color: #2c2c2c00;
+        padding: 10px;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .cart img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .order-button {
+        width: 100%;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  .CartTop {
+    position: absolute;
+    top: 100%;
+    right: 0px;
+    z-index: 1000;
+  }
+  .cart-item-count {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 0, 0, 0);
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 50%;
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+  }
+  .NOTE {
+    color: red;
+  }
+  .arrow-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #000;
+  }
+
+  .arrow-buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .heart-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #000;
+    position: relative;
+  }
+
+  .heart-shape {
+    width: 1em;
+    height: 1em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(0.25em, 0);
+  }
+
+  .red-heart {
+    fill: red;
+    stroke: black;
+    stroke-width: 2;
+  }
+
+  .white-heart {
+    fill: white;
+    stroke: black;
+    stroke-width: 2;
+  }
+</style>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+
+  <title>Quprint</title>
+
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+  <link href="../css/style.css" rel="stylesheet" />
+  <link href="../css/responsive.css" rel="stylesheet" />
+</head>
+
+<body class="sub_page">
+  <div class="hero_area">
+    <div class="hero_bg_box">
+      <div class="img-box">
+        <img src="../images/hero-bg.jpg" alt="">
+      </div>
+    </div>
+
+
+    <div class="CartTop">
+        <div class="cart" onclick="toggleCart()">
+            <img src="../images/Cart.png" width="70px">
+        </div>
+        <div class="cart-item-count" id="cart-item-count"></div>
+        <div class="cart-content" id="cart-content">
+            <div id="cart-items"></div>
+            <div class="cart-summary">
+                <h3>Total: <span id="cart-total">0.00</span></h3>
+                <button class="order-button" onclick="placeOrder()">Order</button>
+            </div>
+        </div>
+    </div>
+
+
+     
+    <header class="header_section">
+      <div class="header_top">
+        <div class="container-fluid">
+          <div class="contact_link-container">
+            <a href="" class="contact_link1">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span>
+                Malmö
+              </span>
+            </a>
+            <a href="" class="contact_link3">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>
+                Quantumsprints@gmail.com
+              </span>
+            </a>
+
+
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <section class="about_section layout_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 px-0">
+          <div class="img_container">
+            <div class="img-box">
+              <img src="../images/T10_1.png" alt="" id="product-image"/>
+            </div>
+          </div>
+          <button class="heart-button" id="heart-button" onclick="toggleHeart()">
+            <svg class="heart-shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path class="red-heart" d="M12 21.35l-1.45-1.32C5.4 14.25 2 11.16 2 7.5 2 4.42 4.42 2 7.5 2 9.24 2 10.91 2.89 12 4.35 13.09 2.89 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.65-3.4 6.75-8.55 12.03L12 21.35z"/>
+              <path class="white-heart" d="M12 21.35l-1.45-1.32C5.4 14.25 2 11.16 2 7.5 2 4.42 4.42 2 7.5 2 9.24 2 10.91 2.89 12 4.35 13.09 2.89 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.65-3.4 6.75-8.55 12.03L12 21.35z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="col-md-6 px-0">
+          <div class="detail-box">
+            <div class="heading_container ">
+              <h2>
+                MicroSD Wallet<hr>10kr</h2>
+            </div>
+            <p>
+              Introducing our MicroSD Wallet
+              <br><br>
+              – a sleek and durable solution for personalizing your workspace. Crafted from high-quality plastic, this single-design MicroSD Wallet is perfect for workspaces. With clear and easy-to-read lettering, it effortlessly enhances organization in a minimalistic and professional manner. Simplify and elevate your office space with our practical MicroSD Wallet – order yours today.
+            </p>
+            <br>
+            <br>
+            <div class="NOTE">
+              <br>
+            </div>
+            <div class="btn-box">
+              <a href="javascript:void(0);" onclick="addToCart('MicroSD Wallet', 10.8)">
+                Add to basket
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+ function toggleCart() {
+            window.location.href = '../Cart.html';
+        }
+
+        function placeOrder() {
+            const totalAmount = parseFloat(
+                document.getElementById('cart-total').textContent.replace('Total: ', '').replace(' Kr', '')
+            );
+            if (totalAmount == 0) {
+                alert('Your cart is empty. Add items before placing an order.');
+            } else {
+                window.open('../Cart.html', '_self');
+            }
+        }
+
+
+
+
+
+
+
+     
+    window.onbeforeunload = function () {
+    // Clear the file input value when leaving the page
+    const imageUpload = document.getElementById('imageUpload');
+    imageUpload.value = '';
+  };
+
+  // Add this function to update the filename display
+  function updateFilename() {
+      const imageUpload = document.getElementById('imageUpload');
+      const filenameDisplay = document.getElementById('filenameDisplay');
+
+      // Check if a file is selected
+      if (imageUpload.files.length > 0) {
+        filenameDisplay.textContent = imageUpload.files[0].name;
+      } else {
+        filenameDisplay.textContent = ''; // Clear the display if no file is selected
+      }
+  }
+  document.getElementById('imageUpload').addEventListener('change', updateFilename);
+
+    let currentImageIndex = 1;
+
+    function changeImage(direction) {
+      const productImage = document.getElementById('product-image');
+
+      if (direction === 'next') {
+        currentImageIndex = (currentImageIndex % 3) + 1;
+      } else if (direction === 'prev') {
+        currentImageIndex = (currentImageIndex - 2 + 3) % 3 + 1;
+      }
+
+      productImage.src = `../images/T4_${currentImageIndex}.png`;
+    }
+
+    function toggleHeart() {
+      const heartButton = document.getElementById('heart-button');
+      const isRed = heartButton.classList.toggle('red-heart');
+
+      if (isRed) {
+        heartButton.querySelector('.red-heart').style.display = 'block';
+        heartButton.querySelector('.white-heart').style.display = 'none';
+      } else {
+        heartButton.querySelector('.red-heart').style.display = 'none';
+        heartButton.querySelector('.white-heart').style.display = 'block';
+      }
+
+      document.cookie = `heartState=${isRed ? 'red' : 'white'}; path=/`;
+    }
+
+    window.onload = function () {
+      const heartButton = document.getElementById('heart-button');
+      const heartState = getCookie('heartState');
+
+      if (heartState === 'red') {
+        heartButton.classList.add('red-heart');
+        heartButton.querySelector('.red-heart').style.display = 'block';
+        heartButton.querySelector('.white-heart').style.display = 'none';
+      }
+
+      const cartItemCount = document.getElementById('cart-item-count');
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      cartItemCount.textContent = cartItems.length;
+    };
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+  function addToCart(itemName, itemPrice) {
+    const cartItemCount = document.getElementById('cart-item-count');
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+    // Check if the name1Input or name2Input is empty
+    alert('Item added to cart!');
+
+    const id = `${name}`;
+
+    // Add the item to the cart
+    cartItems.push({
+      id: id,
+      name: itemName,
+      price: itemPrice,
+      quantity: 1, // Always set the quantity to 1
+      Name: name,
+    });
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    cartItemCount.textContent = cartItems.length;
+    alert('Product added to cart!');
+  }
+  </script>
+
+  <footer class="container-fluid footer_section">
+    <p>
+      &copy; <span id="currentYear"></span> All Rights Reserved. Design by Ali</a>
+    </p>
+  </footer>
+
+  <script src="../js/jquery-3.4.1.min.js"></script>
+  <script src="../js/bootstrap.js"></script>
+  <script src="../js/custom.js"></script>
+</body>
+
+</html>
