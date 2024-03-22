@@ -271,8 +271,8 @@ function applyCoupon() {
   const couponCode = couponCodeInput.value.trim();
 
   if (couponCode === 'eweb') {
-    couponPercentage = 25;
-    localStorage.setItem('ewebCouponApplied', '25%, eweb');
+    couponPercentage = 10;
+    localStorage.setItem('ewebCouponApplied', '10%, eweb');
     alert('Coupon applied successfully!');
   } else {
     couponPercentage = 0;
@@ -312,7 +312,7 @@ function updateCart() {
   const deliveryCost = calculateDeliveryCost(selectedCountry, itemCount);
 
   // Apply coupon discount
-  const couponPercentage = localStorage.getItem('ewebCouponApplied') ? 25 : 0;
+  const couponPercentage = localStorage.getItem('ewebCouponApplied') ? 10 : 0;
   const discount = (total * couponPercentage) / 100;
   const discountedTotal = total - discount + deliveryCost;
 
